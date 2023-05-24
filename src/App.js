@@ -1,18 +1,18 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Pokemon from "./Components/Pokemon";
-import PokemonInfo from "./Components/PokemonInfo";
+import Category from "./Components/CategoryPage";
+import LandingPage from "./Components/LandingPage";
 
 function App() {
   return (
     <>
       <div className="App">
-        <h3>Pokemon Let's Go!!!</h3>
+        <h1>Pokemon Let's Go!!!</h1>
       </div>
       <Routes>
-        <Route path="/" />
-        <Route path="/pokemon/:id" element={<Pokemon />} />
-        <Route path="/pokemon/:id/:info" element={<PokemonInfo />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/:category" element={<Category />} />
+        {/* <Route path="/fight" element={<Fight />} /> */}
       </Routes>
     </>
   );
