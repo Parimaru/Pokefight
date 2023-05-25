@@ -28,7 +28,7 @@ const categories = [
 export default function NestedGrid() {
   return (
     <>
-      <h2 style={{ textAlign: "center" }}>Pokemon let's go fighting</h2>
+      <h2 style={{ textAlign: "center" }}>Pokemon let's go fighting!</h2>
       <Box sx={{ flexWrap: "wrap" }}>
         <Grid container spacing={1}>
           <Grid container item spacing={3}>
