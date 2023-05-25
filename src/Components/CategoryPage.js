@@ -1,10 +1,21 @@
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
 import { Card, Box, Grid } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import PokemonCardInfo from "./PokemonInfo";
+import PokemonPopover from "./PokemonPopover";
 
 export default function Category() {
   const pokemons = ["Pikatchu", "Ratzfratz", "Pumeluff"];
+  const [popover, setPopover] = useState(false);
+
+  const handleClick = () => {
+    console.log("I'm the handleClick")
+    setPopover(true)
+  }
+
+  // useEffect (() => {
+  //   handleClick()
+  // }, [])
 
   const { category } = useParams();
   return (
@@ -15,7 +26,7 @@ export default function Category() {
           <Grid container item spacing={3}>
             {pokemons.map((pokemon) => (
               <Grid item xs={2}>
-                <Card onClick={() => <PokemonCardInfo />}>
+                <Card onClick={handleClick}>
                   <Box sx={{ width: 300, height: 200 }}>{pokemon}</Box>
                 </Card>
               </Grid>
@@ -23,6 +34,7 @@ export default function Category() {
           </Grid>
         </Grid>
       </Box>
+      {popover? <p>true</p> : <p>false</p>}
     </>
   );
 }
