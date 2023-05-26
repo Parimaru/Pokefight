@@ -4,8 +4,12 @@ import { useContext, useEffect, useState } from "react";
 import { Card, Box, Grid } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import PokemonPopover from "./PokemonPopover";
+import { useContext } from "react";
+import { PopoverContext } from "../Context/PopoverContext";
 
 export default function Category() {
+  const { category } = useParams();
+  const { popover, setPopover } = useContext(PopoverContext);
   const { pokemons } = useContext(DataContext);
   const [popover, setPopover] = useState(false);
   const { category } = useParams();
@@ -41,7 +45,7 @@ export default function Category() {
           </Grid>
         </Grid>
       </Box>
-      {popover ? <p>true</p> : <p>false</p>}
+      <PokemonPopover />
     </>
   );
 }
