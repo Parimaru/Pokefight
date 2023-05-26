@@ -3,14 +3,17 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import PopoverContext from "./Context/PopoverContext";
+import DataContext from "./Context/DataContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <DataContext>
       <PopoverContext>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </PopoverContext>
-    </BrowserRouter>
+    </DataContext>
   </React.StrictMode>
 );
