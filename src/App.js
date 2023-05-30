@@ -2,6 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Category from "./Components/CategoryPage";
 import LandingPage from "./Components/LandingPage";
+import FightPage from "./Components/FightPage";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/:category" element={<Category />} />
-        {/* <Route path="/fight" element={<Fight />} /> */}
+        <Route path="/fight" element={<FightPage />} />
       </Routes>
     </>
   );
