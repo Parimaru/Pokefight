@@ -1,8 +1,8 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
 import { NavLink } from "react-router-dom";
+import "./Pages.css";
 
 const categories = [
   "Normal",
@@ -28,16 +28,28 @@ const categories = [
 export default function NestedGrid() {
   return (
     <>
-      <h2 style={{ textAlign: "center" }}>Pokemon let's go fighting!</h2>
-      <Box sx={{ flexWrap: "wrap" }}>
-        <Grid container spacing={1}>
-          <Grid container item spacing={3}>
+      <h2 style={{ textAlign: "center" }}>
+        Choose your Pokémon from one of this categories
+      </h2>
+      <Box
+        sx={{
+          flexWrap: "wrap",
+          marginTop: "50px",
+          marginInline: "10vw",
+          padding: "0",
+        }}
+      >
+        <Grid container>
+          <Grid container>
             {categories.map((category) => (
-              <Grid item xs={2}>
+              <Grid xs={2} className="hover">
                 <NavLink to={`/${category}`}>
-                  <Card>
-                    <Box sx={{ width: 300, height: 200 }}>{category}</Box>
-                  </Card>
+                  <Box>
+                    <img
+                      src={"../img/card/" + category + ".png"}
+                      className="categoryCard"
+                    />
+                  </Box>
                 </NavLink>
               </Grid>
             ))}

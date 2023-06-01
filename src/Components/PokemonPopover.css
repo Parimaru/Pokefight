@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&display=swap');
+
+p{
+    margin: 0;
+}
+
+.icon{
+    height: 27px;
+}
+
+.iconSmall{
+    height: 23px;
+}
+
+.pokeCard{
+    background-size:cover;
+    width: 552px;
+    height: 768px;
+    margin: auto 0;
+    font-style: normal;
+    font-family: 'Albert Sans', sans-serif;
+    color: black;
+}
+
+.container{
+    margin: 0 45px;
+}
+
+/* Header */
+
+.header{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.header .name{
+    position: relative;
+    margin-top: 30px;
+    margin-bottom: 0;
+    font-weight: 800;
+    font-size: 33px;
+}
+.header .headerRight{
+    display: flex;
+    align-items: flex-end;
+}
+
+.headerRight .hp{
+    font-weight: 700;
+    font-size: 14px;
+    margin: 0;
+}
+.headerRight .hpValue{
+    font-weight: 700;
+    font-size: 35px;
+    margin: 0 2px -7px 2px;
+}
+
+/* Picture */
+
+.basicEvolve{
+    position: relative;
+    left: 6%;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 11px;
+    margin: 8px 0 0  0 ;
+}
+
+.picturePokemon{
+    position: relative;
+    display: block;
+    width: 324px;
+    margin: 0 auto;
+    margin-top: -27px;
+}
+
+.description{
+    margin:-18px 0 0 0;
+    font-weight: 400;
+    font-size: 11px;
+    text-align: center;
+}
+
+/* Text1 */
+
+.textTop{
+    font-weight: 500;
+    font-size: 19px;
+    margin-top: 24px;
+    overflow: visible;
+    height: 3.5rem;
+}
+
+/* Attacks */
+
+.attacksField{
+    display: flex;
+    justify-content: space-between;
+    font-size: 28px;
+}
+
+.attacksField p{
+    padding: 13px 0 19px 0;
+    font-weight: 600;
+}
+
+.attacksField .icon{
+    display: block;
+}
+
+.attacksField .firstIcon{
+    display: block;
+    margin-top:5px;
+}
+
+.attacksField .secondIcon{
+    display: flex;
+    padding: 5px 0 0 0;
+}
+.attacksField .secondIcon .twoTimes {
+    font-size: 19px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.attacksField .value{
+    text-align: right;
+}
+
+/* Defence */
+
+.defence{
+    display: flex;
+    font-weight: 500;
+    margin-top: 17px;
+    align-items: flex-end;
+}
+
+.defence .defenceValue{
+    position: relative;
+    left: 30%;
+}
+.defence .defenceIcon{
+    position: relative;
+    margin-bottom: -5px;
+    left: 37%
+}
+
+.defence .oneTime{
+    position: relative;
+    left: 38%;
+    font-size: 17px;
+}
+
+.defence .defenceSpValue{
+    position: relative;
+    left: 74%
+}
+
+/* Footer */
+
+.footer{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    min-height: 57px;
+}
+
+.footer .textButtom{
+    font-size: 16px;
+    width: 75%;
+}
+
+.footer .footerRight{
+    font-size: 12px;
+    text-align: right;
+}

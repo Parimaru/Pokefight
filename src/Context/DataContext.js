@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext } from "react";
 
 export const DataContext = createContext();
 
@@ -17,7 +17,7 @@ export default function DataContextProvider(props) {
   useEffect(() => {
     fetchPokemons();
   }, []);
-  console.log("our data object ", pokemons);
+  // console.log("our data object ", pokemons);
 
   return (
     <DataContext.Provider value={{ pokemons }}>
