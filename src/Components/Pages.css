@@ -6,6 +6,9 @@
 
 body {
     background-color: rgb(255, 222, 166);
+    background-image: url("/public/img/header.png");
+    background-repeat:no-repeat;
+    background-size: contain;
 }
 
 .categoryCard{
@@ -18,4 +21,8 @@ body {
 
 .categoryCard:hover{
     transform: translateY(-4px)
+}
+
+.justPlaceholder{
+    height: 45vh;
 }

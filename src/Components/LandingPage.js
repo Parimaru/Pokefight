@@ -28,9 +28,10 @@ const categories = [
 export default function NestedGrid() {
   return (
     <>
-      <h2 style={{ textAlign: "center" }}>
-        Choose your Pokémon from one of this categories
-      </h2>
+      <div className="justPlaceholder"></div>
+      <h1 style={{ textAlign: "center" }}>
+        Choose your Pokémon from one of this categories:
+      </h1>
       <Box
         sx={{
           flexWrap: "wrap",
