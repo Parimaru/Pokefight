@@ -10,6 +10,8 @@ import { styled } from "@mui/material/styles";
 import { useContext } from "react";
 import { PopoverContext } from "../Context/PopoverContext";
 import "./PokemonPopover.css";
+import { DatabaseContext } from "../Context/DatabaseContext";
+import { CatchingPokemonSharp } from "@mui/icons-material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -52,6 +54,9 @@ BootstrapDialogTitle.propTypes = {
 export default function PokemonCardInfo() {
   const { popover, setPopover, currentCategory, currentPokemon } =
     useContext(PopoverContext);
+
+  const {pokes} = useContext(DatabaseContext);
+  console.log("My pokemon is coming", pokes)
 
   const handleClose = () => {
     setPopover(false);
