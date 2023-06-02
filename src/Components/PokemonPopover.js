@@ -67,6 +67,7 @@ export default function PokemonCardInfo() {
     setPopover(false);
   };
 
+
   const iconLink = "../img/icon/" + currentCategory + ".png";
   const iconType1 = "../img/icon/" + currentPokemon.type1 + ".png";
   const iconType2 = "../img/icon/" + currentPokemon.type2 + ".png";
