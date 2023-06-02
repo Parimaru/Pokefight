@@ -11,6 +11,7 @@ import { useContext } from "react";
 import { PopoverContext } from "../Context/PopoverContext";
 import "./PokemonPopover.css";
 import { DatabaseContext } from "../Context/DatabaseContext";
+import { DataContext } from "../Context/DataContext";
 import { CatchingPokemonSharp } from "@mui/icons-material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -54,11 +55,15 @@ BootstrapDialogTitle.propTypes = {
 export default function PokemonCardInfo() {
   const { popover, setPopover, currentCategory, currentPokemon } =
     useContext(PopoverContext);
+  const { hero, setHero, enemy, setEnemy } = useContext(DataContext);
 
-  const {pokes} = useContext(DatabaseContext);
-  console.log("My pokemon is coming", pokes)
+  const { pokes } = useContext(DatabaseContext);
+  console.log("My pokemon is coming", pokes);
 
   const handleClose = () => {
+    //check if hero exists, if not setHero(...innerHTML) else setEnemy(...innerHTML)
+    //const handleSelectPokemon = () => {}
+    //redirect landing page
     setPopover(false);
   };
 
