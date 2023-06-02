@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { NavLink } from "react-router-dom";
 import "./Pages.css";
+import { DataContext } from "../Context/DataContext";
+import { useContext } from "react";
 
 const categories = [
   "Normal",
@@ -26,6 +28,8 @@ const categories = [
 ];
 
 export default function NestedGrid() {
+  const { hero } = useContext(DataContext);
+
   return (
     <>
       <h2 style={{ textAlign: "center" }}>
