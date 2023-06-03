@@ -316,25 +316,33 @@ export default function FightPage() {
 
   return (
     <>
-      <div className="fighterone">
-        <h2>{fighterOne?.name.english}</h2>
-        <p>Speed: {fighterOne?.base.Speed}</p>
-        <p>HP: {fighterOne?.base.HP}</p>
-        <h3>dynamic HP: {fighterOneHealth}</h3>
-        <p>Attack: {fighterOne?.base.Attack}</p>
-        <p>dynamic Attack: {myAttack}</p>
-        <p>Defense: {fighterOne?.base.Defense}</p>
+      <div
+        className="fightersWrapper"
+        style={{ display: "flex", justifyContent: "space-around" }}
+      >
+        <div className="fighterone">
+          <h2>{fighterOne?.name.english}</h2>
+          <p>Speed: {fighterOne?.base.Speed}</p>
+          <p>HP: {fighterOne?.base.HP}</p>
+          <h3>dynamic HP: {fighterOneHealth}</h3>
+          <p>Attack: {fighterOne?.base.Attack}</p>
+          <p>dynamic Attack: {myAttack}</p>
+          <p>Defense: {fighterOne?.base.Defense}</p>
+        </div>
+        <div>
+          <h1>VS</h1>
+        </div>
+        <div className="fightertwo">
+          <h2>{fighterTwo?.name.english}</h2>
+          <p>Speed: {fighterTwo?.base.Speed}</p>
+          <p>HP: {fighterTwo?.base.HP}</p>
+          <h3>dynamic HP: {fighterTwoHealth}</h3>
+          <p>Attack: {fighterTwo?.base.Attack}</p>
+          <p>dynamic Attack: {opponentAttack}</p>
+          <p>Defense: {fighterTwo?.base.Defense}</p>
+        </div>
       </div>
-      <div className="fightertwo">
-        <h2>{fighterTwo?.name.english}</h2>
-        <p>Speed: {fighterTwo?.base.Speed}</p>
-        <p>HP: {fighterTwo?.base.HP}</p>
-        <h3>dynamic HP: {fighterTwoHealth}</h3>
-        <p>Attack: {fighterTwo?.base.Attack}</p>
-        <p>dynamic Attack: {opponentAttack}</p>
-        <p>Defense: {fighterTwo?.base.Defense}</p>
-      </div>
-      <div className="winner">
+      <div className="winner" style={{ textAlign: "center" }}>
         <h2>Winner: {winner}</h2>
       </div>
     </>
