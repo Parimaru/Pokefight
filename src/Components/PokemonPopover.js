@@ -12,6 +12,7 @@ import { PopoverContext } from "../Context/PopoverContext";
 import "./PokemonPopover.css";
 import { DatabaseContext } from "../Context/DatabaseContext";
 import { DataContext } from "../Context/DataContext";
+import { useNavigate } from "react-router-dom";
 import { CatchingPokemonSharp } from "@mui/icons-material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -55,7 +56,8 @@ BootstrapDialogTitle.propTypes = {
 export default function PokemonCardInfo() {
   const { popover, setPopover, currentCategory, currentPokemon } =
     useContext(PopoverContext);
-  const { hero, setHero, enemy, setEnemy } = useContext(DataContext);
+  const { hero, setHero, setEnemy } = useContext(DataContext);
+  const navigate = useNavigate();
 
   const { pokes } = useContext(DatabaseContext);
   console.log("My pokemon is coming", pokes);
@@ -67,6 +69,16 @@ export default function PokemonCardInfo() {
     setPopover(false);
   };
 
+  const handleSelectPokemon = () => {
+    if (!hero.length) {
+      setHero();
+    } else {
+      setEnemy();
+      navigate("/fight");
+    }
+    setPopover(false);
+    navigate("/");
+  };
 
   const iconLink = "../img/icon/" + currentCategory + ".png";
   const iconType1 = "../img/icon/" + currentPokemon.type1 + ".png";
