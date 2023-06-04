@@ -71,20 +71,12 @@ export default function PokemonCardInfo() {
 
   const handleSelectPokemon = () => {
     if (!hero) {
-      console.log("not hero inner if");
-      console.log("hero", hero);
       setHero(true);
-      console.log("hero set");
       navigate("/");
-      console.log("navigate landing page");
       setPopover(false);
     } else {
-      console.log("not enemy inner if");
-      console.log("enemy", enemy);
       setEnemy(true);
-      console.log("enemy set");
       navigate("/fight");
-      console.log("navigate to fight");
       setPopover(false);
     }
   };
