@@ -70,7 +70,7 @@ export default function PokemonCardInfo() {
   };
 
   const handleSelectPokemon = () => {
-    if (!hero.length) {
+    if (!hero?.length) {
       setHero();
     } else {
       setEnemy();
@@ -183,17 +183,31 @@ export default function PokemonCardInfo() {
           </div>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={handleClose}
-            sx={{
-              margin: "0 auto",
-              display: "flex",
-              color: "black",
-              width: "100%",
-            }}
-          >
-            I CHOOSE THIS POKÉMON
-          </Button>
+          {hero ? (
+            <Button
+              onClick={handleSelectPokemon}
+              sx={{
+                margin: "0 auto",
+                display: "flex",
+                color: "black",
+                width: "100%",
+              }}
+            >
+              I CHOOSE THIS ENEMY
+            </Button>
+          ) : (
+            <Button
+              onClick={handleSelectPokemon}
+              sx={{
+                margin: "0 auto",
+                display: "flex",
+                color: "black",
+                width: "100%",
+              }}
+            >
+              I CHOOSE THIS POKÉMON
+            </Button>
+          )}
         </DialogActions>
       </BootstrapDialog>
     </div>

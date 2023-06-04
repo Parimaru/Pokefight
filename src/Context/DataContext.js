@@ -5,7 +5,7 @@ export const DataContext = createContext();
 
 export default function DataContextProvider(props) {
   const [pokemons, setPokemons] = useState();
-  const [hero, setHero] = useState(true);
+  const [hero, setHero] = useState(false);
   const [enemy, setEnemy] = useState();
   const fetchPokemons = async () => {
     const url =
