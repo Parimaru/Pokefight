@@ -56,7 +56,7 @@ BootstrapDialogTitle.propTypes = {
 export default function PokemonCardInfo() {
   const { popover, setPopover, currentCategory, currentPokemon } =
     useContext(PopoverContext);
-  const { hero, setHero, setEnemy } = useContext(DataContext);
+  const { hero, setHero, enemy, setEnemy } = useContext(DataContext);
   const navigate = useNavigate();
 
   const { pokes } = useContext(DatabaseContext);
@@ -70,14 +70,23 @@ export default function PokemonCardInfo() {
   };
 
   const handleSelectPokemon = () => {
-    if (!hero?.length) {
-      setHero();
+    if (!hero) {
+      console.log("not hero inner if");
+      console.log("hero", hero);
+      setHero(true);
+      console.log("hero set");
+      navigate("/");
+      console.log("navigate landing page");
+      setPopover(false);
     } else {
-      setEnemy();
+      console.log("not enemy inner if");
+      console.log("enemy", enemy);
+      setEnemy(true);
+      console.log("enemy set");
       navigate("/fight");
+      console.log("navigate to fight");
+      setPopover(false);
     }
-    setPopover(false);
-    navigate("/");
   };
 
   const iconLink = "../img/icon/" + currentCategory + ".png";
@@ -91,7 +100,8 @@ export default function PokemonCardInfo() {
     <div className="dialog">
       <BootstrapDialog
         onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
+        aria-labelled
+        by="customized-dialog-title"
         open={popover}
       >
         <BootstrapDialogTitle
