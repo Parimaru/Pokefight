@@ -12,6 +12,7 @@ import { PopoverContext } from "../Context/PopoverContext";
 import "./PokemonPopover.css";
 import { DatabaseContext } from "../Context/DatabaseContext";
 import { DataContext } from "../Context/DataContext";
+import { useNavigate } from "react-router-dom";
 import { CatchingPokemonSharp } from "@mui/icons-material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -56,6 +57,7 @@ export default function PokemonCardInfo() {
   const { popover, setPopover, currentCategory, currentPokemon } =
     useContext(PopoverContext);
   const { hero, setHero, enemy, setEnemy } = useContext(DataContext);
+  const navigate = useNavigate();
 
   const { pokes } = useContext(DatabaseContext);
   console.log("My pokemon is coming", pokes);
@@ -67,6 +69,17 @@ export default function PokemonCardInfo() {
     setPopover(false);
   };
 
+  const handleSelectPokemon = () => {
+    if (!hero) {
+      setHero(true);
+      navigate("/");
+      setPopover(false);
+    } else {
+      setEnemy(true);
+      navigate("/fight");
+      setPopover(false);
+    }
+  };
 
   const iconLink = "../img/icon/" + currentCategory + ".png";
   const iconType1 = "../img/icon/" + currentPokemon.type1 + ".png";
@@ -79,7 +92,8 @@ export default function PokemonCardInfo() {
     <div className="dialog">
       <BootstrapDialog
         onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
+        aria-labelled
+        by="customized-dialog-title"
         open={popover}
       >
         <BootstrapDialogTitle
@@ -171,17 +185,31 @@ export default function PokemonCardInfo() {
           </div>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={handleClose}
-            sx={{
-              margin: "0 auto",
-              display: "flex",
-              color: "black",
-              width: "100%",
-            }}
-          >
-            I CHOOSE THIS POKÉMON
-          </Button>
+          {hero ? (
+            <Button
+              onClick={handleSelectPokemon}
+              sx={{
+                margin: "0 auto",
+                display: "flex",
+                color: "black",
+                width: "100%",
+              }}
+            >
+              I CHOOSE THIS ENEMY
+            </Button>
+          ) : (
+            <Button
+              onClick={handleSelectPokemon}
+              sx={{
+                margin: "0 auto",
+                display: "flex",
+                color: "black",
+                width: "100%",
+              }}
+            >
+              I CHOOSE THIS POKÉMON
+            </Button>
+          )}
         </DialogActions>
       </BootstrapDialog>
     </div>

@@ -5,8 +5,8 @@ export const DataContext = createContext();
 
 export default function DataContextProvider(props) {
   const [pokemons, setPokemons] = useState();
-  const [hero, setHero] = useState(true);
-  const [enemy, setEnemy] = useState();
+  const [hero, setHero] = useState(null);
+  const [enemy, setEnemy] = useState(null);
   const fetchPokemons = async () => {
     const url =
       "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json";
