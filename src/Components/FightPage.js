@@ -1,4 +1,8 @@
 import { useState, useEffect } from "react";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
+import { DataContext } from "../Context/DataContext";
+import { useContext } from "react";
 
 // 10 pokis in the array
 const testFighters = [
@@ -190,6 +194,7 @@ export default function FightPage() {
   const [startFighter, setStartFighter] = useState(null);
   const [countRound, setCountRound] = useState(1);
   const [winner, setWinner] = useState(null);
+  const [loser, setLoser] = useState(null)
 
   const fighterOne = testFighters[1];
   const fighterTwo = testFighters[8];
@@ -302,8 +307,10 @@ export default function FightPage() {
         default:
           if (fighterOneHealth <= 0) {
             setWinner(fighterTwo.name.english);
+            setLoser(fighterOne.name.english)
           } else {
             setWinner(fighterOne.name.english);
+            setLoser(fighterTwo.name.english)
           }
           break;
       }
@@ -313,6 +320,40 @@ export default function FightPage() {
   useEffect(() => {
     fightSequence();
   }, [countRound]);
+
+  const navigate = useNavigate()
+  const {setHero, setEnemy } = useContext(DataContext);
+
+  function handleClickLeaderboard () {
+    navigate("/leaderboard")
+  }
+
+  function handleClickRestart () {
+    setWinner(null)
+    setHero(null)
+    setEnemy(null)
+    navigate("/")
+  }
+
+  async function submitResult () {
+    const databody = {
+      winner: winner,
+      loser: loser,
+      turns: countRound
+    };
+    console.log(" normal databody is :", databody);
+    console.log(" databody JSON is :", JSON.stringify(databody));
+    return await fetch("http://localhost:8000/results", {
+      method: "POST",
+      body: JSON.stringify(databody),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
+
+if(winner && loser && countRound) {
+  submitResult ()
+}
 
   return (
     <>
@@ -344,6 +385,12 @@ export default function FightPage() {
       </div>
       <div className="winner" style={{ textAlign: "center" }}>
         <h2>Winner: {winner}</h2>
+        <Button onClick={handleClickLeaderboard} variant="contained">
+            Leaderboard
+        </Button>
+        <Button onClick={handleClickRestart} variant="contained">
+            Start again
+        </Button>
       </div>
     </>
   );
