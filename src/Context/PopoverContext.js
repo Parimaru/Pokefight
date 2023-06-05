@@ -6,7 +6,7 @@ export const PopoverContext = createContext();
 
 export default function PopoverContextProvider(props) {
   const [popover, setPopover] = useState(false);
-  const [currentCategory, setCurrentCategory] = useState("Fire");
+  const [currentCategory, setCurrentCategory] = useState(null);
   const [currentPoke, setCurrentPoke] = useState(null);
   const [currentPokemon, setCurrentPokemon] = useState(null);
   const [currentPokemonName, setCurrentPokemonName] = useState(null);

@@ -4,12 +4,16 @@
     font-family: 'Albert Sans', sans-serif;
 }
 
+
+
 body {
     background-color: rgb(255, 222, 166);
-    background-image: url("/public/img/header.png");
-    background-repeat:no-repeat;
-    background-size: contain;
 }
+
+.darkMode {
+    background-color: rgb(52, 47, 47);
+    color: white;
+  }
 
 .categoryCard{
     height: 150px;
@@ -20,10 +24,10 @@ body {
 }
 
 .pokeChoose{
-    height: 220px;
+    height: 224px;
     width: 200px;
-    padding-top: 10px;
-    margin-inline: 10px;
+    padding-top: 20px;
+    margin-inline: 15px;
     transform: translateY(0)
 }
 

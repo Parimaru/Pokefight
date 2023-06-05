@@ -60,7 +60,6 @@ export default function Category() {
 
   return (
     <>
-      <div className="justPlaceholder"></div>
       <h1 style={{ textAlign: "center" }}>Choose your Pokémon:</h1>
       <Box
         sx={{
@@ -91,7 +90,7 @@ export default function Category() {
                   backgroundSize: "contain",
                   backgroundRepeat: "no-repeat",
                   textAlign: "center",
-                  backgroundPositionY: "25px",
+                  backgroundPositionY: "38px",
                   fontWeight: "700",
                 }}
               >
