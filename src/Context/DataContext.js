@@ -5,14 +5,13 @@ export const DataContext = createContext();
 
 export default function DataContextProvider(props) {
   const [pokemons, setPokemons] = useState(); // figure out what the resolve of the promise giving back as datatype
-  const [hero, setHero] = useState();
-  const [enemy, setEnemy] = useState();
   const [pokemonTypeObject, setPokemonTypeObject] = useState();
+  const [hero, setHero] = useState(null);
+  const [enemy, setEnemy] = useState(null);
 
   const fetchPokemons = async () => {
     const url =
       "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json";
-    //const url = "https://pokeapi.co/api/v2/pokemon";
     const response = await fetch(`${url}`);
     const data = await response.json();
     setPokemons(data);

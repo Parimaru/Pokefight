@@ -63,7 +63,7 @@ export default function DatabaseContextProvider(props) {
   //console.log("my poke", pokes);
 
   return (
-    <DatabaseContext.Provider value={{ pokes, pokesTypeObject }}>
+    <DatabaseContext.Provider value={{ pokes, pokesTypeObject, fetchPokes  }}>
       {props.children}
     </DatabaseContext.Provider>
   );
