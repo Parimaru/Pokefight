@@ -59,7 +59,6 @@ export default function PokemonCardInfo() {
     setPopover,
     currentPokemon,
     currentCategory,
-    currentPokemonName,
     setCurrentPokemonName,
     currentPoke,
   } = useContext(PopoverContext);

@@ -1,15 +1,12 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import { DataContext } from "../Context/DataContext";
 import { DatabaseContext } from "../Context/DatabaseContext";
-import { useState, createContext } from "react";
 
 export const PopoverContext = createContext();
 
 export default function PopoverContextProvider(props) {
-  const { pokemons } = useContext(DataContext);
-  const { pokes } = useContext(DatabaseContext);
   const [popover, setPopover] = useState(false);
-  const [currentCategory, setCurrentCategory] = useState("Fire");
+  const [currentCategory, setCurrentCategory] = useState(null);
   const [currentPoke, setCurrentPoke] = useState(null);
   const [currentPokemon, setCurrentPokemon] = useState(null);
   const [currentPokemonName, setCurrentPokemonName] = useState(null);

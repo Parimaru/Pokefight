@@ -6,9 +6,22 @@ import FightPage from "./Components/FightPage";
 import Leaderboard from "./Components/Leaderboard";
 
 function App() {
+  // function handleOnlick() {
+  //   if (body.className === "darkMode") {
+  //     body.className = "";
+  //   } else {
+  //     body.className = "darkMode";
+  //   }
+  // }
   return (
     <>
       <div className="App">
+        <img src="/img/header.png" className="headerPages" />
+        {/* <img
+          src="./img/icon/Dark.png"
+          className="toggleTheme"
+          onClick={handleOnlick}
+        /> */}
         <h1>Pokemon Let's Go!!!!</h1>
       </div>
       <Routes>
