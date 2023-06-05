@@ -18,14 +18,6 @@ export default function DatabaseContextProvider(props) {
     setPokesTypeObject(await getPokesFromType(data.data));
   };
 
-  // if (pokemonTypeArray) {
-  //   setPokesTypeObject(
-  //     pokemonTypeArray.map((pokeJSON) =>
-  //       pokes.find((pokesTwo) => pokesTwo.id == pokeJSON.id)
-  //     )
-  //   );
-  // }
-
   function getPokesFromType(data) {
     const filter = (type) => {
       const filtered = data.filter(
@@ -63,7 +55,7 @@ export default function DatabaseContextProvider(props) {
   //console.log("my poke", pokes);
 
   return (
-    <DatabaseContext.Provider value={{ pokes, pokesTypeObject, fetchPokes  }}>
+    <DatabaseContext.Provider value={{ pokes, pokesTypeObject, fetchPokes }}>
       {props.children}
     </DatabaseContext.Provider>
   );
