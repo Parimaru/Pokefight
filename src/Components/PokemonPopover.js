@@ -7,7 +7,7 @@ import {
   DialogActions,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { useContext } from "react";
+import { useContext, useParams } from "react";
 import { PopoverContext } from "../Context/PopoverContext";
 import "./PokemonPopover.css";
 import { DatabaseContext } from "../Context/DatabaseContext";
@@ -54,19 +54,28 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function PokemonCardInfo() {
-  const { popover, setPopover, currentCategory, currentPokemon } =
-    useContext(PopoverContext);
-  const { hero, setHero, enemy, setEnemy } = useContext(DataContext);
-  const navigate = useNavigate();
-
+  const {
+    popover,
+    setPopover,
+    currentPokemon,
+    currentCategory,
+    currentPokemonName,
+    setCurrentPokemonName,
+    currentPoke,
+  } = useContext(PopoverContext);
+  const { hero, setHero, enemy, setEnemy, pokemonTypeObject } =
+    useContext(DataContext);
   const { pokes } = useContext(DatabaseContext);
-  console.log("My pokemon is coming", pokes);
+  //console.log("My pokemon is coming", pokes);
+
+  const navigate = useNavigate();
 
   const handleClose = () => {
     //check if hero exists, if not setHero(...innerHTML) else setEnemy(...innerHTML)
     //const handleSelectPokemon = () => {}
     //redirect landing page
     setPopover(false);
+    setCurrentPokemonName(null);
   };
 
   const handleSelectPokemon = () => {
@@ -82,11 +91,13 @@ export default function PokemonCardInfo() {
   };
 
   const iconLink = "../img/icon/" + currentCategory + ".png";
-  const iconType1 = "../img/icon/" + currentPokemon.type1 + ".png";
-  const iconType2 = "../img/icon/" + currentPokemon.type2 + ".png";
+  const iconType1 = "../img/icon/" + currentPoke?.type1 + ".png";
+  const iconType2 = "../img/icon/" + currentPoke?.type2 + ".png";
   const pokecardImage = {
     backgroundImage: "url(../img/" + currentCategory + ".png)",
   };
+
+  console.log(currentPokemon, currentPoke);
 
   return (
     <div className="dialog">
@@ -115,74 +126,106 @@ export default function PokemonCardInfo() {
             p: 0,
           }}
         >
-          <div>
-            <div className="pokeCard" style={pokecardImage}>
-              <div className="container">
-                <div className="header">
-                  <p className="name">{currentPokemon.name}</p>
-                  <div className="headerRight">
-                    <p className="hp">HP</p>
-                    <p className="hpValue">100</p>
-                    <img src={iconType1} className="typeIcon icon" />
-                    {currentPokemon.type2.length > 0 && (
-                      <img src={iconType2} className="typeIcon icon" />
-                    )}
-                  </div>
-                </div>
-                <p className="basicEvolve">
-                  Evolves from {currentPokemon.evolvesFrom}
-                </p>
-                <img
-                  className="picturePokemon"
-                  src={currentPokemon.pictureArt}
-                />
-                <p className="description">
-                  NO. {currentPokemon.id} {currentPokemon.type1}{" "}
-                  {currentPokemon.type2} Height: {currentPokemon.height} Weight:{" "}
-                  {currentPokemon.weight}
-                </p>
-                <p className="textTop">{currentPokemon.text1}</p>
-                <div className="attacksField">
-                  <div className="icons">
-                    <p className="firstIcon">
-                      <img className=" icon" src="../img/icon/Normal.png"></img>
-                    </p>
-
-                    <div className="secondIcon">
-                      <p className="twoTimes">
-                        <img className="icon" src="../img/icon/Normal.png" />
-                        <img src={iconLink} className="typeIcon icon" />
-                        x2
-                      </p>
+          {currentPokemon && (
+            <div>
+              <div className="pokeCard" style={pokecardImage}>
+                <div className="container">
+                  <div className="header">
+                    <p className="name">{currentPoke.name}</p>
+                    <div className="headerRight">
+                      <p className="hp">HP</p>
+                      <p className="hpValue">{currentPokemon.base.HP}</p>
+                      <img src={iconType1} className="space icon" />
+                      {currentPoke?.type2.length > 0 && (
+                        <img src={iconType2} className="space icon" />
+                      )}
                     </div>
                   </div>
-                  <div className="attacks">
-                    <p className="attack">{currentPokemon.attack1}</p>
-                    <p className="">{currentPokemon.attack2}</p>
-                  </div>
-                  <div className="value">
-                    <p>82</p>
-                    <p>100</p>
-                  </div>
-                </div>
-                <div className="defence">
-                  <p className="defenceValue">83</p>
-                  <p className="defenceIcon">
-                    <img src={iconLink} className="typeIcon iconSmall" />
+                  <p className="basicEvolve">
+                    {currentPoke.evolvesFrom == ""
+                      ? "Basic"
+                      : "Evolves from " + currentPoke.evolvesFrom}
                   </p>
-                  <p className="oneTime">x1</p>
-                  <p className="defenceSpValue">100</p>
-                </div>
-                <div className="footer">
-                  <p className="textButtom">{currentPokemon.text3}</p>
-                  <div className="footerRight">
-                    <div>Habitat: {currentPokemon.habitat}</div>
-                    <div>Base happiness: {currentPokemon.happiness}</div>
+                  <img
+                    className="picturePokemon"
+                    src={currentPoke.pictureArt}
+                  />
+                  <div className="description">
+                    <span>NO.</span>
+                    <span>{currentPoke.id}</span>
+                    <span></span>
+                    <div className="typeOne">{currentPoke.type1}</div>
+                    <span className="typeTwo">{currentPoke.type2}</span>
+                    <span></span>
+                    <span>Height:</span>
+                    <span>{currentPoke.height}</span>
+                    <span></span>
+                    <span>Weight:</span>
+                    <span>{currentPoke.weight}</span>
+                  </div>
+                  <p className="textTop">
+                    {currentPoke.text1
+                      .replace("\n", " ")
+                      .replace("\f", " ")
+                      .replace("POKéMON", "Pokémon")}
+                  </p>
+                  <div className="attacksField">
+                    <div className="icons">
+                      <p className="firstIcon">
+                        <img
+                          className=" icon"
+                          src="../img/icon/Normal.png"
+                        ></img>
+                      </p>
+
+                      <div className="secondIcon">
+                        <p className="twoTimes">
+                          <img className="icon" src="../img/icon/Normal.png" />
+                          <img src={iconLink} className="space icon" />
+                          <span className="space">x2</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="attacks">
+                      <p className="attack">{currentPoke.attack1}</p>
+                      <p className="attack">{currentPoke.attack2}</p>
+                    </div>
+                    <div className="value">
+                      <p>{currentPokemon.base.Attack}</p>
+                      <p>{currentPokemon.base["Sp. Attack"]}</p>
+                    </div>
+                  </div>
+                  <div className="defence">
+                    <p className="defenceValue">
+                      {currentPokemon.base.Defense}
+                    </p>
+                    <p className="defenceIcon">
+                      <img src={iconLink} className="typeIcon iconSmall" />
+                    </p>
+                    <p className="oneTime">x1</p>
+                    <p className="defenceSpValue">
+                      {currentPokemon.base["Sp. Defense"]}
+                    </p>
+                  </div>
+                  <div className="footer">
+                    <p className="textButtom">
+                      {currentPoke.text2
+                        .replace("\n", " ")
+                        .replace("\f", " ")
+                        .replace("POKéMON", "Pokémon")}
+                    </p>
+                    <div className="footerRight">
+                      <div className="flex">
+                        <div>Habitat: </div>
+                        <div className="habitat">{currentPoke.habitat}</div>
+                      </div>
+                      <div>Base happiness: {currentPoke.happiness}</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </DialogContent>
         <DialogActions>
           {hero ? (

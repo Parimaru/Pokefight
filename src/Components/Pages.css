@@ -6,6 +6,9 @@
 
 body {
     background-color: rgb(255, 222, 166);
+    background-image: url("/public/img/header.png");
+    background-repeat:no-repeat;
+    background-size: contain;
 }
 
 .categoryCard{
@@ -16,6 +19,30 @@ body {
     transform: translateY(0)
 }
 
+.pokeChoose{
+    height: 220px;
+    width: 200px;
+    padding-top: 10px;
+    margin-inline: 10px;
+    transform: translateY(0)
+}
+
+.pokeChoose p{
+    padding-top: 20px;
+}
+
+.pokeChoose:hover{
+    transform: translateY(-4px)
+}
+
 .categoryCard:hover{
     transform: translateY(-4px)
+}
+
+.justPlaceholder{
+    height: 45vh;
+}
+
+.pokePicture{
+    width: 80%;
 }
