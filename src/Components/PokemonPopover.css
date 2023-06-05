@@ -6,6 +6,11 @@ p{
 
 .icon{
     height: 27px;
+
+}
+
+.space{
+    margin-left: 3px;
 }
 
 .iconSmall{
@@ -41,6 +46,11 @@ p{
     font-weight: 800;
     font-size: 33px;
 }
+
+.header .name::first-letter {
+    text-transform:capitalize;
+}
+
 .header .headerRight{
     display: flex;
     align-items: flex-end;
@@ -71,16 +81,31 @@ p{
 .picturePokemon{
     position: relative;
     display: block;
-    width: 324px;
+    width: 310px;
     margin: 0 auto;
     margin-top: -27px;
 }
 
 .description{
-    margin:-18px 0 0 0;
+    display: flex;
+    margin:-3px 0 0 0;
     font-weight: 400;
     font-size: 11px;
     text-align: center;
+    justify-content: center;
+}
+
+.description .typeOne::first-letter {
+    text-transform:capitalize;
+}
+
+.description .typeTwo::first-letter {
+    text-transform:capitalize;
+}
+
+
+.description *{
+    margin-inline: 2px;
 }
 
 /* Text1 */
@@ -99,10 +124,11 @@ p{
     display: flex;
     justify-content: space-between;
     font-size: 28px;
+    margin-top: 18px;
 }
 
 .attacksField p{
-    padding: 13px 0 19px 0;
+    padding: 13px 0 10px 0;
     font-weight: 600;
 }
 
@@ -129,12 +155,16 @@ p{
     text-align: right;
 }
 
+.attacksField .attack::first-letter {
+    text-transform:capitalize;
+}
+
 /* Defence */
 
 .defence{
     display: flex;
     font-weight: 500;
-    margin-top: 17px;
+    margin-top: 13px;
     align-items: flex-end;
 }
 
@@ -177,4 +207,14 @@ p{
 .footer .footerRight{
     font-size: 12px;
     text-align: right;
+}
+
+.footer .flex{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.footerRight .habitat::first-letter {
+    text-transform:capitalize;
+    margin-left: 3px;
 }

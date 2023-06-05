@@ -1,48 +1,107 @@
-import { useParams } from "react-router-dom";
-import { DataContext } from "../Context/DataContext";
-import { useContext, useEffect, useState } from "react";
-import { Card, Box, Grid } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import PokemonPopover from "./PokemonPopover";
+import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Box, Skeleton, Stack } from "@mui/material";
 import { PopoverContext } from "../Context/PopoverContext";
+import { DataContext } from "../Context/DataContext";
+import { DatabaseContext } from "../Context/DatabaseContext";
+import PokemonPopover from "./PokemonPopover";
 import "./Pages.css";
 
 export default function Category() {
   const { category } = useParams();
-  const { setPopover, currentCategory, setCurrentCategory, setCurrentPokemon } =
-    useContext(PopoverContext);
-  const { pokemons } = useContext(DataContext);
-  // new array with pokemon type filter for displaying pokemons in corresponding categories
-  const pokemonTypeArray = pokemons?.filter(
-    (pokemon) => pokemon?.type[0] === category || pokemon?.type[1] === category
-  );
-  const handleClick = (event) => {
-    setPopover(true);
-    setCurrentCategory(category);
-    //setCurrentPokemon(event.target.innerHTML);
-  };
+  const {
+    popover,
+    setPopover,
+    currentCategory,
+    setCurrentCategory,
+    currentPokemonName,
+    setCurrentPokemonName,
+    setCurrentPokemon,
+    setCurrentPoke,
+  } = useContext(PopoverContext);
+  const { pokes, pokesTypeObject } = useContext(DatabaseContext);
+  const { pokemons, pokemonTypeObject } = useContext(DataContext);
 
+  // console.log(pokemonTypeObject);
+
+  // console.log(
+  //   "All JSON:",
+  //   pokemons,
+  //   "Only JSON category:",
+  //   [],
+  //   "All MongoDB:",
+  //   pokes,
+  //   "Only MongoDB category",
+  //   pokesCategory
+  // );
+
+  const handleClick = (event) => {
+    setCurrentCategory(category);
+    setPopover(true);
+    setCurrentPokemonName(event.target.innerHTML.toLowerCase());
+    console.log(event.target.innerHTML.toLowerCase());
+
+    setCurrentPokemon(
+      pokemonTypeObject[category]?.find(
+        (obj) => obj.name.english == event.target.innerHTML
+      )
+    );
+    console.log(pokesTypeObject);
+    setCurrentPoke(
+      pokesTypeObject[category]?.find(
+        (obj) => obj.name == event.target.innerHTML.toLowerCase()
+      )
+    );
+  };
   //console.log("category page pokemons", pokemons);
-  //console.log("Filtered typeArray ", pokemonTypeArray);
+  //console.log("Filtered typeArray ", []);
   //console.log("useparams, category", typeof category);
 
   return (
     <>
-      <h3>{category}</h3>
-      <Box sx={{ flexWrap: "wrap" }}>
-        <Grid container spacing={1}>
-          <Grid container item spacing={3}>
-            {pokemonTypeArray?.map((pokemon) => (
-              <Grid item xs={2}>
-                <Card onClick={handleClick}>
-                  <Box sx={{ width: 300, height: 200 }}>
-                    {pokemon.name.english}
-                  </Box>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
+      <div className="justPlaceholder"></div>
+      <h1 style={{ textAlign: "center" }}>Choose your Pokémon:</h1>
+      <Box
+        sx={{
+          flexWrap: "wrap",
+          marginInline: "10vw",
+          padding: "0",
+          display: "inline-flex",
+          gap: "20px",
+          justifyContent: "space-between",
+        }}
+      >
+        {pokesTypeObject ? (
+          pokemonTypeObject[category].map((pokemon, index) => (
+            <div
+              key={index}
+              style={{
+                backgroundImage: "url(../img/pokeCard/" + category + ".png)",
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+              }}
+            >
+              <Box
+                onClick={handleClick}
+                className="pokeChoose"
+                sx={{
+                  backgroundImage:
+                    "url(" + pokesTypeObject[category][index]?.pictureArt + ")",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                  textAlign: "center",
+                  backgroundPositionY: "25px",
+                  fontWeight: "700",
+                }}
+              >
+                {pokemon.name.english}
+              </Box>
+            </div>
+          ))
+        ) : (
+          <Skeleton variant="rounded" width={210} height={60} />
+        )}
       </Box>
       <PokemonPopover />
     </>

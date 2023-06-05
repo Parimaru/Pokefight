@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import { NavLink } from "react-router-dom";
 import "./Pages.css";
 import { DataContext } from "../Context/DataContext";
+import { PopoverContext } from "../Context/PopoverContext";
 import { useContext } from "react";
 
 const categories = [
@@ -46,8 +47,8 @@ export default function NestedGrid() {
       >
         <Grid container>
           <Grid container>
-            {categories.map((category) => (
-              <Grid xs={2} className="hover">
+            {categories.map((category, index) => (
+              <Grid item xs={2} className="hover" key={index}>
                 <NavLink to={`/${category}`}>
                   <Box>
                     <img
