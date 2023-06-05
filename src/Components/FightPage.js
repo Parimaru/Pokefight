@@ -4,6 +4,8 @@ import { DataContext } from "../Context/DataContext";
 import { PopoverContext } from "../Context/PopoverContext";
 import { useContext } from "react";
 import { Slider, Button } from "@mui/material/";
+import styles from "./FightPage.css";
+// import { makeStyles } from "@mui/styles";
 
 export default function FightPage() {
   const { hero, heroAttributes, enemy, enemyAttributes } =
@@ -17,9 +19,6 @@ export default function FightPage() {
   const [heroHealth, setHeroHealth] = useState(heroAttributes?.base.HP);
   const [enemyHealth, setEnemyHealth] = useState(enemyAttributes?.base.HP);
 
-  //console.log(`initial health fighter 1 ${fighterOneHealth}`);
-  //console.log(`initial health fighter 2 ${fighterTwoHealth}`);
-
   const [heroAttack, setHeroAttack] = useState(heroAttributes.base.Attack);
   const [enemyAttack, setEnemyAttack] = useState(enemyAttributes.base.Attack);
   const [heroDefense, setHeroDefense] = useState(heroAttributes.base.Defense);
@@ -27,8 +26,9 @@ export default function FightPage() {
     enemyAttributes.base.Defense
   );
 
-  //console.log(`initial Attack fighter 1 ${myAttack}`);
-  //console.log(`initial Attack fighter 2 ${opponentAttack}`);
+  console.log("HERO", heroAttributes.base.Speed);
+  console.log("ENEMY", enemyAttributes.base.Speed);
+
   //find out who starts
   const whoStarts = () => {
     if (heroAttributes.base.Speed !== enemyAttributes.base.Speed) {
@@ -36,9 +36,11 @@ export default function FightPage() {
       if (heroAttributes?.base.Speed > enemyAttributes.base.Speed) {
         console.log("Hero starts first turn");
         setStartFighter(heroAttributes.name.english);
+        console.log("HERO", heroAttributes.name.english);
       } else {
         console.log("Enemy starts first turn");
         setStartFighter(enemyAttributes.name.english);
+        console.log("ENEMY", enemyAttributes.name.english);
       }
     } else {
       console.log("speed is equal, coin toss!");
@@ -55,7 +57,10 @@ export default function FightPage() {
   };
 
   useEffect(() => {
-    whoStarts();
+    if (!startFighter) {
+      whoStarts();
+      console.log("startFighter", startFighter);
+    }
   }, []);
 
   //defense check
@@ -72,7 +77,6 @@ export default function FightPage() {
       }
     }
 
-    //setMatchReady(true);
     console.log("defense check done");
   };
 
@@ -83,58 +87,103 @@ export default function FightPage() {
 
   const fightSequence = () => {
     let currentHP = 0;
-    if (heroHealth >= 0 || enemyHealth >= 0) {
+    let currentCount = 0;
+    if (heroHealth > 0 && enemyHealth > 0) {
       switch (countRound) {
         case 1:
           console.log("### Start fight sequence ###");
           console.log("Round#1");
-          console.log("coin toss if SPECIAL ATTACK");
-          console.log("coin toss if SPECIAL DEFENSE");
-          console.log("SPECIAL DEFENSE");
-          currentHP = heroHealth - enemyAttack;
-          console.log(`Hero lost ${enemyAttack} HPs`);
-          setHeroHealth(currentHP);
-          setCountRound((prev) => prev + 1);
-
+          console.log(`${startFighter} starts the turn`);
+          if (startFighter !== heroAttributes.name.english) {
+            currentHP = heroHealth - enemyAttack;
+            console.log(`Hero lost ${enemyAttack} HPs`);
+            setHeroHealth(currentHP);
+            setStartFighter(heroAttributes.name.english);
+          } else {
+            currentHP = enemyHealth - heroAttack;
+            console.log(`Enemy lost ${heroAttack} HPs`);
+            setEnemyHealth(currentHP);
+            setStartFighter(enemyAttributes.name.english);
+          }
+          currentCount = countRound + 1;
+          setCountRound(currentCount);
           break;
         case 2:
           console.log("Round#2");
-          console.log("coin toss if SPECIAL ATTACK");
-          console.log("SPECIAL ATTACK");
-          console.log("coin toss if SPECIAL DEFENSE");
-          currentHP = enemyHealth - heroAttack;
-          console.log(`Enemy lost ${heroAttack} HPs`);
-          setEnemyHealth(currentHP);
-          setCountRound((prev) => prev + 1);
-
+          console.log(`${startFighter} starts the turn`);
+          if (startFighter !== heroAttributes.name.english) {
+            currentHP = heroHealth - enemyAttack;
+            console.log(`Hero lost ${enemyAttack} HPs`);
+            setHeroHealth(currentHP);
+            setStartFighter(heroAttributes.name.english);
+          } else {
+            currentHP = enemyHealth - heroAttack;
+            console.log(`Enemy lost ${heroAttack} HPs`);
+            setEnemyHealth(currentHP);
+            setStartFighter(enemyAttributes.name.english);
+          }
+          currentCount = countRound + 1;
+          setCountRound(currentCount);
           break;
         case 3:
           console.log("Round#3");
-          console.log("coin toss if SPECIAL ATTACK");
-          console.log("SPECIAL ATTACK");
-          console.log("coin toss if SPECIAL DEFENSE");
-          console.log("SPECIAL DEFENSE");
-          currentHP = heroHealth - enemyAttack;
-          console.log(`Hero lost ${enemyAttack} HPs`);
-          setHeroHealth(currentHP);
-          setCountRound((prev) => prev + 1);
-
+          console.log(`${startFighter} starts the turn`);
+          if (startFighter !== heroAttributes.name.english) {
+            currentHP = heroHealth - enemyAttack;
+            console.log(`Hero lost ${enemyAttack} HPs`);
+            setHeroHealth(currentHP);
+            setStartFighter(heroAttributes.name.english);
+          } else {
+            currentHP = enemyHealth - heroAttack;
+            console.log(`Enemy lost ${heroAttack} HPs`);
+            setEnemyHealth(currentHP);
+            setStartFighter(enemyAttributes.name.english);
+          }
+          currentCount = countRound + 1;
+          setCountRound(currentCount);
+          break;
+        case 4:
+          console.log("Round#4");
+          console.log(`${startFighter} starts the turn`);
+          if (startFighter !== heroAttributes.name.english) {
+            currentHP = heroHealth - enemyAttack;
+            console.log(`Hero lost ${enemyAttack} HPs`);
+            setHeroHealth(currentHP);
+            setStartFighter(heroAttributes.name.english);
+          } else {
+            currentHP = enemyHealth - heroAttack;
+            console.log(`Enemy lost ${heroAttack} HPs`);
+            setEnemyHealth(currentHP);
+            setStartFighter(enemyAttributes.name.english);
+          }
+          currentCount = countRound + 1;
+          setCountRound(currentCount);
           break;
         default:
-          if (heroHealth <= 0) {
-            setWinner(enemyAttributes.name.english);
-            setLoser(heroAttributes.name.english);
-          } else {
-            setWinner(heroAttributes.name.english);
-            setLoser(enemyAttributes.name.english);
-          }
+          console.log("ooopsi, something went wrong");
           break;
       }
     }
   };
 
   useEffect(() => {
-    fightSequence();
+    if (!startFighter) {
+      console.log("start fighter ready");
+      setTimeout(() => {
+        fightSequence();
+      }, 3000);
+    } else {
+      console.log("start fighter not ready");
+    }
+    if (countRound > 1) {
+      if (heroHealth <= 0) {
+        setWinner(enemyAttributes.name.english);
+        setLoser(heroAttributes.name.english);
+      } else {
+        setWinner(heroAttributes.name.english);
+        setLoser(enemyAttributes.name.english);
+      }
+    }
   }, [countRound]);
 
   const navigate = useNavigate();
@@ -151,62 +200,90 @@ export default function FightPage() {
     navigate("/");
   }
 
+  // const useStyles = makeStyles({
+  //   root: {
+  //     color: 'red',
+  //     '& p': {
+  //       margin: 0,
+  //       color: 'green',
+  //       '& span': {
+  //         color: 'blue',
+  //       },
+  //     },
+  //   },
+  // });
+
+  // export default function NestedStylesHook() {
+  //   const classes = useStyles();
   return (
     <>
-      <h1>Round {countRound}</h1>
-      <div
-        className="fightersWrapper"
-        style={{ display: "flex", justifyContent: "space-around" }}
-      >
-        <div className="hero">
-          <h2>{heroAttributes?.name.english}</h2>
-          <img
-            src={hero.pictureAnimFront}
-            style={{ width: "200px", height: "200px" }}
-          />
-          <Slider
-            sx={{ color: "green" }}
-            disabled
-            defaultValue={heroAttributes?.base.HP}
-            max={heroAttributes?.base.HP}
-            aria-label="Hp hero slider"
-            value={heroHealth}
-            valueLabelDisplay="on"
-          />
-          {/* <p>Speed: {fighterOne?.base.Speed}</p>
-          <p>HP: {fighterOne?.base.HP}</p>
-          <h3>dynamic HP: {fighterOneHealth}</h3>
-          <p>Attack: {fighterOne?.base.Attack}</p>
-          <p>dynamic Attack: {myAttack}</p>
-          <p>Defense: {fighterOne?.base.Defense}</p> */}
-        </div>
-        <div>
-          <h1>VS</h1>
-        </div>
-        <div className="enemy">
-          <h2>{enemyAttributes?.name.english}</h2>
-          <img
-            src={enemy.pictureAnimBack}
-            style={{ width: "200px", height: "200px" }}
-          />
-          <Slider
-            disabled
-            defaultValue={enemyAttributes?.base.HP}
-            max={heroAttributes?.base.HP}
-            aria-label="Hp enemy slider"
-            value={enemyHealth}
-            valueLabelDisplay="on"
-          />
-          {/* <p>Speed: {fighterTwo?.base.Speed}</p>
+      <h1 style={{ textAlign: "center" }}>Round {countRound}</h1>
+      <div className="fightersWrapper">
+        <div className="player">
+          <div className="enemyStats">
+            <h2>{enemyAttributes?.name.english}</h2>
+            <Slider
+              disabled
+              defaultValue={enemyAttributes?.base.HP}
+              max={heroAttributes?.base.HP}
+              aria-label="Hp enemy slider"
+              value={enemyHealth}
+              valueLabelDisplay="on"
+            />
+          </div>
+          <div className="enemyPicture">
+            <img
+              src={enemy.pictureAnimBack}
+              style={{ width: "200px", height: "200px" }}
+            />
+            {/* <p>Speed: {fighterTwo?.base.Speed}</p>
           <p>HP: {fighterTwo?.base.HP}</p>
           <h3>dynamic HP: {fighterTwoHealth}</h3>
           <p>Attack: {fighterTwo?.base.Attack}</p>
           <p>dynamic Attack: {opponentAttack}</p>
           <p>Defense: {fighterTwo?.base.Defense}</p> */}
+          </div>
+        </div>
+        <div className="vs">
+          <p>VS</p>
+        </div>
+        <div className="player">
+          <div className="heroPicture">
+            <img
+              src={hero.pictureAnimFront}
+              style={{ width: "200px", height: "200px" }}
+            />
+          </div>
+          <div className="heroStats">
+            <Slider
+              // className={classes.disabled}
+              sx={{ color: "green" }}
+              disabled
+              defaultValue={heroAttributes?.base.HP}
+              max={heroAttributes?.base.HP}
+              aria-label="Hp hero slider"
+              value={heroHealth}
+              valueLabelDisplay="on"
+              //color="red"
+            />
+            <h2>{heroAttributes?.name.english}</h2>
+            {/* <p>Speed: {fighterOne?.base.Speed}</p>
+          <p>HP: {fighterOne?.base.HP}</p>
+          <h3>dynamic HP: {fighterOneHealth}</h3>
+          <p>Attack: {fighterOne?.base.Attack}</p>
+          <p>dynamic Attack: {myAttack}</p>
+          <p>Defense: {fighterOne?.base.Defense}</p> */}
+          </div>
         </div>
       </div>
-      <div className="winner" style={{ textAlign: "center" }}>
-        <h2>Winner: {winner}</h2>
+      {winner ? (
+        <div className="winner" style={{ textAlign: "center" }}>
+          <h2>Winner: {winner}</h2>
+        </div>
+      ) : (
+        <div></div>
+      )}
+      <div className="buttons" style={{ textAlign: "center" }}>
         <Button onClick={handleClickLeaderboard} variant="contained">
           Leaderboard
         </Button>

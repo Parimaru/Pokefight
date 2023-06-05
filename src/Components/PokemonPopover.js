@@ -98,7 +98,7 @@ export default function PokemonCardInfo() {
   const iconType1 = "../img/icon/" + currentPoke?.type1 + ".png";
   const iconType2 = "../img/icon/" + currentPoke?.type2 + ".png";
   const pokecardImage = {
-    backgroundImage: "url(../img/" + currentCategory + ".png)",
+    backgroundImage: "url(../img/pokePopup/" + currentCategory + ".png)",
   };
 
   console.log(currentPokemon, currentPoke);
