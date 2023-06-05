@@ -6,8 +6,10 @@ export const DataContext = createContext();
 export default function DataContextProvider(props) {
   const [pokemons, setPokemons] = useState(); // figure out what the resolve of the promise giving back as datatype
   const [pokemonTypeObject, setPokemonTypeObject] = useState();
-  const [hero, setHero] = useState(null);
-  const [enemy, setEnemy] = useState(null);
+  const [hero, setHero] = useState(null); // getting data from JSON - pokemons
+  const [heroAttributes, setHeroAttributes] = useState(null); //getting data from MongoDB - pokes
+  const [enemy, setEnemy] = useState(null); //getting data from JSON - pokemons
+  const [enemyAttributes, setEnemyAttributes] = useState(null); //getting data from MongoDB - pokes
 
   const fetchPokemons = async () => {
     const url =
@@ -56,7 +58,18 @@ export default function DataContextProvider(props) {
 
   return (
     <DataContext.Provider
-      value={{ pokemons, hero, setHero, enemy, setEnemy, pokemonTypeObject }}
+      value={{
+        pokemons,
+        hero,
+        setHero,
+        enemy,
+        setEnemy,
+        pokemonTypeObject,
+        heroAttributes,
+        setHeroAttributes,
+        enemyAttributes,
+        setEnemyAttributes,
+      }}
     >
       {props.children}
     </DataContext.Provider>

@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&display=swap');
+
+.fightersWrapper{
+    background-color: blanchedalmond;
+    max-width: 60vw;
+    margin: 0 auto;
+    font-style: normal;
+    font-family: 'Albert Sans', sans-serif;
+}
+
+.player{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+
+}
+
+
+.heroStats{
+    display: flex;
+    flex-direction: column;
+    align-self: end;
+}
+
+.vs{
+    font-size: xx-large;
+    font-weight: 600;
+    text-align: center;
+}

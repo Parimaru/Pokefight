@@ -31,17 +31,32 @@ const categories = [
 ];
 
 export default function NestedGrid() {
-  const { hero, enemy, setEnemy, pokemons } = useContext(DataContext);
+  const {
+    hero,
+    enemy,
+    setEnemy,
+    enemyAttributes,
+    setEnemyAttributes,
+    pokemons,
+  } = useContext(DataContext);
   const { pokes, fetchPokes } = useContext(DatabaseContext);
   const navigate = useNavigate();
 
   console.log("Pokemons", pokemons);
 
   function handleClickRandom() {
-    const randomEnemy = pokemons[Math.floor(Math.random() * 809)];
-    setEnemy(randomEnemy);
+    const randomEnemy = Math.floor(Math.random() * 809);
+    const filteredPokemon = pokemons.find(
+      (onePokemon) => onePokemon.id === randomEnemy
+    );
+    const filteredPoke = pokes.find(
+      (onePokemon) => onePokemon.id === randomEnemy
+    );
+    console.log(filteredPoke, filteredPokemon);
+    setEnemy(filteredPoke);
+    setEnemyAttributes(filteredPokemon);
     console.log("randomEnemy", randomEnemy);
-    console.log("useState", enemy);
+    console.log("useState", enemyAttributes);
     navigate("/fight");
   }
 

@@ -62,28 +62,33 @@ export default function PokemonCardInfo() {
     setCurrentPokemonName,
     currentPoke,
   } = useContext(PopoverContext);
-  const { hero, setHero, enemy, setEnemy, pokemonTypeObject } =
-    useContext(DataContext);
+  const {
+    hero,
+    setHero,
+    setHeroAttributes,
+    setEnemyAttributes,
+    setEnemy,
+    pokemonTypeObject,
+  } = useContext(DataContext);
   const { pokes } = useContext(DatabaseContext);
   //console.log("My pokemon is coming", pokes);
 
   const navigate = useNavigate();
 
   const handleClose = () => {
-    //check if hero exists, if not setHero(...innerHTML) else setEnemy(...innerHTML)
-    //const handleSelectPokemon = () => {}
-    //redirect landing page
     setPopover(false);
     setCurrentPokemonName(null);
   };
 
   const handleSelectPokemon = () => {
     if (!hero) {
-      setHero(true);
+      setHero(currentPoke);
+      setHeroAttributes(currentPokemon);
       navigate("/");
       setPopover(false);
     } else {
-      setEnemy(true);
+      setEnemy(currentPoke);
+      setEnemyAttributes(currentPokemon);
       navigate("/fight");
       setPopover(false);
     }
@@ -93,7 +98,7 @@ export default function PokemonCardInfo() {
   const iconType1 = "../img/icon/" + currentPoke?.type1 + ".png";
   const iconType2 = "../img/icon/" + currentPoke?.type2 + ".png";
   const pokecardImage = {
-    backgroundImage: "url(../img/" + currentCategory + ".png)",
+    backgroundImage: "url(../img/pokePopup/" + currentCategory + ".png)",
   };
 
   console.log(currentPokemon, currentPoke);
