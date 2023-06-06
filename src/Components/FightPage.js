@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { DataContext } from "../Context/DataContext";
 import { PopoverContext } from "../Context/PopoverContext";
 import { useContext } from "react";
-import { Slider, Button } from "@mui/material/";
+import { LinearProgress, Button } from "@mui/material/";
 import styles from "./FightPage.css";
 // import { makeStyles } from "@mui/styles";
 
@@ -168,7 +168,7 @@ export default function FightPage() {
 
   useEffect(() => {
     if (!startFighter) {
-      console.log("start fighter ready");
+      console.log("start fighter ready"); //startfighter console.log
       setTimeout(() => {
         fightSequence();
       }, 3000);
@@ -218,7 +218,7 @@ export default function FightPage() {
   return (
     <>
       <div className="container">
-        <h1 style={{ textAlign: "center" }}>Round {countRound}</h1>
+        <h1 style={{ textAlign: "center" }}></h1>
         <div
           className="fightersWrapper"
           style={{
@@ -231,13 +231,14 @@ export default function FightPage() {
           <div className="player enemy">
             <div className="enemyStats">
               <div className="sliderEnemy">
-                <Slider
-                  disabled
+                <LinearProgress
+                  sx={{ height: "1vw" }}
+                  variant="determinate"
                   defaultValue={enemyAttributes?.base.HP}
                   max={heroAttributes?.base.HP}
                   aria-label="Hp enemy slider"
                   value={enemyHealth}
-                  valueLabelDisplay="auto"
+                  color="success"
                 />
               </div>
               <p className="name">{enemyAttributes?.name.english}</p>
@@ -264,15 +265,15 @@ export default function FightPage() {
             </div>
             <div className="heroStats">
               <div className="sliderHero">
-                <Slider
-                  sx={{ color: "green" }}
+                <LinearProgress
+                  sx={{ height: "1vw" }}
+                  variant="determinate"
                   disabled
                   defaultValue={heroAttributes?.base.HP}
                   max={heroAttributes?.base.HP}
                   aria-label="Hp hero slider"
                   value={heroHealth}
-                  valueLabelDisplay="auto"
-                  //color="red"
+                  color="success"
                 />
               </div>
               <p className="name">{heroAttributes?.name.english}</p>
@@ -284,14 +285,10 @@ export default function FightPage() {
           <p>Defense: {fighterOne?.base.Defense}</p> */}
             </div>
           </div>
-        </div>
-        {winner ? (
           <div className="winner" style={{ textAlign: "center" }}>
-            <h2>Winner: {winner}</h2>
+            {winner ? <h2>{winner} won!</h2> : <h2>Round {countRound + 1}</h2>}
           </div>
-        ) : (
-          <div></div>
-        )}
+        </div>
         <div className="buttons" style={{ textAlign: "center" }}>
           <Button onClick={handleClickLeaderboard} variant="contained">
             Leaderboard

@@ -21,8 +21,7 @@ function App() {
           src="./img/icon/Dark.png"
           className="toggleTheme"
           onClick={handleOnlick}
-        /> */}
-        <h1>Pokemon Let's Go!!!!</h1>
+        /> */}{" "}
       </div>
       <Routes>
         <Route path="/" element={<LandingPage />} />
