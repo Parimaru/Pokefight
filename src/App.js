@@ -22,7 +22,6 @@ function App() {
           className="toggleTheme"
           onClick={handleOnlick}
         /> */}
-        <h1>Pokemon Let's Go!!!!</h1>
       </div>
       <Routes>
         <Route path="/" element={<LandingPage />} />
