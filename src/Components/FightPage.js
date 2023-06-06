@@ -215,6 +215,65 @@ export default function FightPage() {
 
   // export default function NestedStylesHook() {
   //   const classes = useStyles();
+
+  async function createFighter () {
+    const data = await fetch(`http://localhost:8000/fighters/${heroAttributes.name.english}`)
+      const res = await data.json()
+      console.log("getFighter", res)
+    if(res === null) {
+      console.log("if statement createFighter")
+        const databody = {
+        name: heroAttributes.name.english,
+        wins: 0,
+        loses: 0
+        };
+          const newdata = await fetch(`http://localhost:8000/fighters`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(databody),
+        })
+        const newres = await newdata.json()
+          console.log("newres", newres)
+        };
+    }
+  
+  async function updateWinner () {
+    const databody = {
+    wins: 0
+    };
+      const data = await fetch(`http://localhost:8000/fighters/winner/${winner}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(databody),
+    })
+    const res = await data.json()
+      console.log("res", res)
+    };
+  
+    async function updateLoser () {
+      const databody = {
+        loses: 0
+      };
+        const data = await fetch(`http://localhost:8000/fighters/loser/${loser}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(databody),
+      })
+      const res = await data.json()
+        console.log("res", res)
+      };
+  
+    useEffect(()=>{
+      createFighter ();
+      if(winner) {
+        updateWinner ()
+      }
+      if(loser) {
+        updateLoser ()
+      }
+      }, [winner, loser])
+  
+
   return (
     <>
       <div className="container">
