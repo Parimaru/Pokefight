@@ -217,79 +217,89 @@ export default function FightPage() {
   //   const classes = useStyles();
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Round {countRound}</h1>
-      <div className="fightersWrapper">
-        <div className="player">
-          <div className="enemyStats">
-            <h2>{enemyAttributes?.name.english}</h2>
-            <Slider
-              disabled
-              defaultValue={enemyAttributes?.base.HP}
-              max={heroAttributes?.base.HP}
-              aria-label="Hp enemy slider"
-              value={enemyHealth}
-              valueLabelDisplay="on"
-            />
-          </div>
-          <div className="enemyPicture">
-            <img
-              src={enemy.pictureAnimBack}
-              style={{ width: "200px", height: "200px" }}
-            />
-            {/* <p>Speed: {fighterTwo?.base.Speed}</p>
+      <div className="container">
+        <h1 style={{ textAlign: "center" }}>Round {countRound}</h1>
+        <div
+          className="fightersWrapper"
+          style={{
+            backgroundImage: "url(../img/arenaBase.png)",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          <img className="simulator" src="../img/simulator.png"></img>
+          <div className="player enemy">
+            <div className="enemyStats">
+              <div className="sliderEnemy">
+                <Slider
+                  disabled
+                  defaultValue={enemyAttributes?.base.HP}
+                  max={heroAttributes?.base.HP}
+                  aria-label="Hp enemy slider"
+                  value={enemyHealth}
+                  valueLabelDisplay="auto"
+                />
+              </div>
+              <p className="name">{enemyAttributes?.name.english}</p>
+            </div>
+            <div className="enemyPicture">
+              <img
+                src={enemy.pictureAnimBack}
+                style={{ width: "10vw", height: "10vw" }}
+              />
+              {/* <p>Speed: {fighterTwo?.base.Speed}</p>
           <p>HP: {fighterTwo?.base.HP}</p>
           <h3>dynamic HP: {fighterTwoHealth}</h3>
           <p>Attack: {fighterTwo?.base.Attack}</p>
           <p>dynamic Attack: {opponentAttack}</p>
           <p>Defense: {fighterTwo?.base.Defense}</p> */}
+            </div>
           </div>
-        </div>
-        <div className="vs">
-          <p>VS</p>
-        </div>
-        <div className="player">
-          <div className="heroPicture">
-            <img
-              src={hero.pictureAnimFront}
-              style={{ width: "200px", height: "200px" }}
-            />
-          </div>
-          <div className="heroStats">
-            <Slider
-              // className={classes.disabled}
-              sx={{ color: "green" }}
-              disabled
-              defaultValue={heroAttributes?.base.HP}
-              max={heroAttributes?.base.HP}
-              aria-label="Hp hero slider"
-              value={heroHealth}
-              valueLabelDisplay="on"
-              //color="red"
-            />
-            <h2>{heroAttributes?.name.english}</h2>
-            {/* <p>Speed: {fighterOne?.base.Speed}</p>
+          <div className="player hero">
+            <div className="heroPicture">
+              <img
+                src={hero.pictureAnimFront}
+                style={{ width: "10vw", height: "10vw" }}
+              />
+            </div>
+            <div className="heroStats">
+              <div className="sliderHero">
+                <Slider
+                  sx={{ color: "green" }}
+                  disabled
+                  defaultValue={heroAttributes?.base.HP}
+                  max={heroAttributes?.base.HP}
+                  aria-label="Hp hero slider"
+                  value={heroHealth}
+                  valueLabelDisplay="auto"
+                  //color="red"
+                />
+              </div>
+              <p className="name">{heroAttributes?.name.english}</p>
+              {/* <p>Speed: {fighterOne?.base.Speed}</p>
           <p>HP: {fighterOne?.base.HP}</p>
           <h3>dynamic HP: {fighterOneHealth}</h3>
           <p>Attack: {fighterOne?.base.Attack}</p>
           <p>dynamic Attack: {myAttack}</p>
           <p>Defense: {fighterOne?.base.Defense}</p> */}
+            </div>
           </div>
         </div>
-      </div>
-      {winner ? (
-        <div className="winner" style={{ textAlign: "center" }}>
-          <h2>Winner: {winner}</h2>
+        {winner ? (
+          <div className="winner" style={{ textAlign: "center" }}>
+            <h2>Winner: {winner}</h2>
+          </div>
+        ) : (
+          <div></div>
+        )}
+        <div className="buttons" style={{ textAlign: "center" }}>
+          <Button onClick={handleClickLeaderboard} variant="contained">
+            Leaderboard
+          </Button>
+          <Button onClick={handleClickRestart} variant="contained">
+            Start again
+          </Button>
         </div>
-      ) : (
-        <div></div>
-      )}
-      <div className="buttons" style={{ textAlign: "center" }}>
-        <Button onClick={handleClickLeaderboard} variant="contained">
-          Leaderboard
-        </Button>
-        <Button onClick={handleClickRestart} variant="contained">
-          Start again
-        </Button>
       </div>
     </>
   );
