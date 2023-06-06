@@ -13,16 +13,35 @@ useEffect(()=>{
     getAllFighters ()
 }, [])
 
+
     return (
         <>
-            {data?.map((poke) => (
-            <div key={poke._id}>
-            <p>POKEMON: {poke.name}</p>
-            <p>WINS: {poke.wins}</p>
-            <p>LOSES: {poke.loses}</p> 
+        <div style={{display: "flex", justifyContent: "space-around"}}>
+            <div>
+                <h3>POKEMON</h3>
+                {data?.map((poke) => (
+                <div key={poke._id} style={{display: "flex", justifyContent: "space", alignItems: "center", marginBottom: "10px"}}>
+                <p>{poke.name}</p>
+                </div>
+                ))}  
             </div>
-            )
-        )}
+            <div>
+                <h3>WINS</h3>
+                {data?.map((poke) => (
+                <div key={poke._id} style={{display: "flex", justifyContent: "space", alignItems: "center", marginBottom: "10px"}}>
+                <p>{poke.wins}</p>
+                </div>
+                ))} 
+            </div>
+            <div>
+                <h3>LOSES</h3>
+                {data?.map((poke) => (
+                <div key={poke._id} style={{display: "flex", justifyContent: "space", alignItems: "center", marginBottom: "10px"}}>
+                <p>{poke.loses}</p> 
+                </div>
+                ))}
+            </div>
+        </div>
         </>
     )
 }

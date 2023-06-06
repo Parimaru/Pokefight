@@ -59,10 +59,11 @@ export default function FightPage() {
   useEffect(() => {
     if (!startFighter) {
       whoStarts();
-      console.log("startFighter", startFighter);
+      setCountRound(0)
     }
   }, []);
 
+  console.log("startFighter", startFighter);
   //defense check
 
   // ###issue### dynamic defense setting doesn't update
@@ -90,17 +91,20 @@ export default function FightPage() {
     let currentCount = 0;
     if (heroHealth > 0 && enemyHealth > 0) {
       switch (countRound) {
+        case 0:
+          setCountRound(1)
+        break;
         case 1:
           console.log("### Start fight sequence ###");
           console.log("Round#1");
           console.log(`${startFighter} starts the turn`);
           if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack;
+            currentHP = heroHealth - enemyAttack/4;
             console.log(`Hero lost ${enemyAttack} HPs`);
             setHeroHealth(currentHP);
             setStartFighter(heroAttributes.name.english);
           } else {
-            currentHP = enemyHealth - heroAttack;
+            currentHP = enemyHealth - heroAttack/4;
             console.log(`Enemy lost ${heroAttack} HPs`);
             setEnemyHealth(currentHP);
             setStartFighter(enemyAttributes.name.english);
@@ -112,12 +116,12 @@ export default function FightPage() {
           console.log("Round#2");
           console.log(`${startFighter} starts the turn`);
           if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack;
+            currentHP = heroHealth - enemyAttack/4;
             console.log(`Hero lost ${enemyAttack} HPs`);
             setHeroHealth(currentHP);
             setStartFighter(heroAttributes.name.english);
           } else {
-            currentHP = enemyHealth - heroAttack;
+            currentHP = enemyHealth - heroAttack/4;
             console.log(`Enemy lost ${heroAttack} HPs`);
             setEnemyHealth(currentHP);
             setStartFighter(enemyAttributes.name.english);
@@ -129,12 +133,12 @@ export default function FightPage() {
           console.log("Round#3");
           console.log(`${startFighter} starts the turn`);
           if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack;
+            currentHP = heroHealth - enemyAttack/4;
             console.log(`Hero lost ${enemyAttack} HPs`);
             setHeroHealth(currentHP);
             setStartFighter(heroAttributes.name.english);
           } else {
-            currentHP = enemyHealth - heroAttack;
+            currentHP = enemyHealth - heroAttack/4;
             console.log(`Enemy lost ${heroAttack} HPs`);
             setEnemyHealth(currentHP);
             setStartFighter(enemyAttributes.name.english);
@@ -163,19 +167,7 @@ export default function FightPage() {
           console.log("ooopsi, something went wrong");
           break;
       }
-    }
-  };
-
-  useEffect(() => {
-    if (!startFighter) {
-      console.log("start fighter ready");
-      setTimeout(() => {
-        fightSequence();
-      }, 3000);
     } else {
-      console.log("start fighter not ready");
-    }
-    if (countRound > 1) {
       if (heroHealth <= 0) {
         setWinner(enemyAttributes.name.english);
         setLoser(heroAttributes.name.english);
@@ -183,6 +175,17 @@ export default function FightPage() {
         setWinner(heroAttributes.name.english);
         setLoser(enemyAttributes.name.english);
       }
+    }
+  };
+
+  useEffect(() => {
+    if (startFighter) {
+      console.log("start fighter ready");
+      setTimeout(() => {
+        fightSequence();
+      }, 2000);
+    } else {
+      console.log("start fighter not ready");
     }
   }, [countRound]);
 
@@ -277,7 +280,7 @@ export default function FightPage() {
   return (
     <>
       <div className="container">
-        <h1 style={{ textAlign: "center" }}>Round {countRound}</h1>
+        <h1 style={{ textAlign: "center" }}>Round {countRound +1}</h1>
         <div
           className="fightersWrapper"
           style={{
