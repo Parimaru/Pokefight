@@ -11,7 +11,7 @@ export default function DatabaseContextProvider(props) {
   // console.log(pokename);
 
   const fetchPokes = async () => {
-    const url = `http://localhost:8000/poke/`;
+    const url = `https://pokefight-test.onrender.com/`;
     const response = await fetch(`${url}`);
     const data = await response.json();
     setPokes(data.data);

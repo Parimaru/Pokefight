@@ -135,10 +135,10 @@ export default function PokemonCardInfo() {
               <div className="pokeCard" style={pokecardImage}>
                 <div className="container">
                   <div className="header">
-                    <p className="name">{currentPoke.name}</p>
+                    <p className="name">{currentPoke?.name}</p>
                     <div className="headerRight">
                       <p className="hp">HP</p>
-                      <p className="hpValue">{currentPokemon.base.HP}</p>
+                      <p className="hpValue">{currentPokemon?.base.HP}</p>
                       <img src={iconType1} className="space icon" />
                       {currentPoke?.type2.length > 0 && (
                         <img src={iconType2} className="space icon" />
@@ -146,29 +146,29 @@ export default function PokemonCardInfo() {
                     </div>
                   </div>
                   <p className="basicEvolve">
-                    {currentPoke.evolvesFrom == ""
+                    {currentPoke?.evolvesFrom == ""
                       ? "Basic"
-                      : "Evolves from " + currentPoke.evolvesFrom}
+                      : "Evolves from " + currentPoke?.evolvesFrom}
                   </p>
                   <img
                     className="picturePokemon"
-                    src={currentPoke.pictureArt}
+                    src={currentPoke?.pictureArt}
                   />
                   <div className="description">
                     <span>NO.</span>
-                    <span>{currentPoke.id}</span>
+                    <span>{currentPoke?.id}</span>
                     <span></span>
-                    <div className="typeOne">{currentPoke.type1}</div>
-                    <span className="typeTwo">{currentPoke.type2}</span>
+                    <div className="typeOne">{currentPoke?.type1}</div>
+                    <span className="typeTwo">{currentPoke?.type2}</span>
                     <span></span>
                     <span>Height:</span>
-                    <span>{currentPoke.height}</span>
+                    <span>{currentPoke?.height}</span>
                     <span></span>
                     <span>Weight:</span>
                     <span>{currentPoke.weight}</span>
                   </div>
                   <p className="textTop">
-                    {currentPoke.text1
+                    {currentPoke?.text1
                       .replace("\n", " ")
                       .replace("\f", " ")
                       .replace("POKéMON", "Pokémon")}
@@ -191,29 +191,29 @@ export default function PokemonCardInfo() {
                       </div>
                     </div>
                     <div className="attacks">
-                      <p className="attack">{currentPoke.attack1}</p>
-                      <p className="attack">{currentPoke.attack2}</p>
+                      <p className="attack">{currentPoke?.attack1}</p>
+                      <p className="attack">{currentPoke?.attack2}</p>
                     </div>
                     <div className="value">
-                      <p>{currentPokemon.base.Attack}</p>
-                      <p>{currentPokemon.base["Sp. Attack"]}</p>
+                      <p>{currentPokemon?.base.Attack}</p>
+                      <p>{currentPokemon?.base["Sp. Attack"]}</p>
                     </div>
                   </div>
                   <div className="defence">
                     <p className="defenceValue">
-                      {currentPokemon.base.Defense}
+                      {currentPokemon?.base.Defense}
                     </p>
                     <p className="defenceIcon">
                       <img src={iconLink} className="typeIcon iconSmall" />
                     </p>
                     <p className="oneTime">x1</p>
                     <p className="defenceSpValue">
-                      {currentPokemon.base["Sp. Defense"]}
+                      {currentPokemon?.base["Sp. Defense"]}
                     </p>
                   </div>
                   <div className="footer">
                     <p className="textButtom">
-                      {currentPoke.text2
+                      {currentPoke?.text2
                         .replace("\n", " ")
                         .replace("\f", " ")
                         .replace("POKéMON", "Pokémon")}
@@ -221,9 +221,9 @@ export default function PokemonCardInfo() {
                     <div className="footerRight">
                       <div className="flex">
                         <div>Habitat: </div>
-                        <div className="habitat">{currentPoke.habitat}</div>
+                        <div className="habitat">{currentPoke?.habitat}</div>
                       </div>
-                      <div>Base happiness: {currentPoke.happiness}</div>
+                      <div>Base happiness: {currentPoke?.happiness}</div>
                     </div>
                   </div>
                 </div>

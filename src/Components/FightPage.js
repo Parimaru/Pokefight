@@ -12,7 +12,7 @@ export default function FightPage() {
     useContext(DataContext);
 
   const [startFighter, setStartFighter] = useState(null);
-  const [countRound, setCountRound] = useState(1);
+  const [countRound, setCountRound] = useState(0);
   const [winner, setWinner] = useState(null);
   const [loser, setLoser] = useState(null);
 
@@ -26,8 +26,8 @@ export default function FightPage() {
     enemyAttributes.base.Defense
   );
 
-  console.log("HERO", heroAttributes.base.Speed);
-  console.log("ENEMY", enemyAttributes.base.Speed);
+  // console.log("HERO", heroAttributes.base.Speed);
+  // console.log("ENEMY", enemyAttributes.base.Speed);
 
   //find out who starts
   const whoStarts = () => {
@@ -59,9 +59,10 @@ export default function FightPage() {
   useEffect(() => {
     if (!startFighter) {
       whoStarts();
-      console.log("startFighter", startFighter);
+      setCountRound(1);
     }
   }, []);
+  console.log("startFighter after useEffect", startFighter);
 
   //defense check
 
@@ -87,7 +88,8 @@ export default function FightPage() {
 
   const fightSequence = () => {
     let currentHP = 0;
-    let currentCount = 0;
+    let currentCount = 1;
+
     if (heroHealth > 0 && enemyHealth > 0) {
       switch (countRound) {
         case 1:
@@ -95,12 +97,12 @@ export default function FightPage() {
           console.log("Round#1");
           console.log(`${startFighter} starts the turn`);
           if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack;
+            currentHP = heroHealth - enemyAttack / 2;
             console.log(`Hero lost ${enemyAttack} HPs`);
             setHeroHealth(currentHP);
             setStartFighter(heroAttributes.name.english);
           } else {
-            currentHP = enemyHealth - heroAttack;
+            currentHP = enemyHealth - heroAttack / 2;
             console.log(`Enemy lost ${heroAttack} HPs`);
             setEnemyHealth(currentHP);
             setStartFighter(enemyAttributes.name.english);
@@ -112,12 +114,12 @@ export default function FightPage() {
           console.log("Round#2");
           console.log(`${startFighter} starts the turn`);
           if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack;
+            currentHP = heroHealth - enemyAttack / 3;
             console.log(`Hero lost ${enemyAttack} HPs`);
             setHeroHealth(currentHP);
             setStartFighter(heroAttributes.name.english);
           } else {
-            currentHP = enemyHealth - heroAttack;
+            currentHP = enemyHealth - heroAttack / 3;
             console.log(`Enemy lost ${heroAttack} HPs`);
             setEnemyHealth(currentHP);
             setStartFighter(enemyAttributes.name.english);
@@ -129,12 +131,12 @@ export default function FightPage() {
           console.log("Round#3");
           console.log(`${startFighter} starts the turn`);
           if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack;
+            currentHP = heroHealth - enemyAttack / 3;
             console.log(`Hero lost ${enemyAttack} HPs`);
             setHeroHealth(currentHP);
             setStartFighter(heroAttributes.name.english);
           } else {
-            currentHP = enemyHealth - heroAttack;
+            currentHP = enemyHealth - heroAttack / 3;
             console.log(`Enemy lost ${heroAttack} HPs`);
             setEnemyHealth(currentHP);
             setStartFighter(enemyAttributes.name.english);
@@ -146,12 +148,28 @@ export default function FightPage() {
           console.log("Round#4");
           console.log(`${startFighter} starts the turn`);
           if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack;
+            currentHP = heroHealth - enemyAttack / 2;
             console.log(`Hero lost ${enemyAttack} HPs`);
             setHeroHealth(currentHP);
             setStartFighter(heroAttributes.name.english);
           } else {
-            currentHP = enemyHealth - heroAttack;
+            currentHP = enemyHealth - heroAttack / 2;
+            console.log(`Enemy lost ${heroAttack} HPs`);
+            setEnemyHealth(currentHP);
+            setStartFighter(enemyAttributes.name.english);
+          }
+          currentCount = countRound + 1;
+          setCountRound(currentCount);
+        case 5:
+          console.log("Round#4");
+          console.log(`${startFighter} starts the turn`);
+          if (startFighter !== heroAttributes.name.english) {
+            currentHP = heroHealth - enemyAttack / 2;
+            console.log(`Hero lost ${enemyAttack} HPs`);
+            setHeroHealth(currentHP);
+            setStartFighter(heroAttributes.name.english);
+          } else {
+            currentHP = enemyHealth - heroAttack / 2;
             console.log(`Enemy lost ${heroAttack} HPs`);
             setEnemyHealth(currentHP);
             setStartFighter(enemyAttributes.name.english);
@@ -160,22 +178,9 @@ export default function FightPage() {
           setCountRound(currentCount);
           break;
         default:
-          console.log("ooopsi, something went wrong");
           break;
       }
-    }
-  };
-
-  useEffect(() => {
-    if (!startFighter) {
-      console.log("start fighter ready");
-      setTimeout(() => {
-        fightSequence();
-      }, 3000);
     } else {
-      console.log("start fighter not ready");
-    }
-    if (countRound > 1) {
       if (heroHealth <= 0) {
         setWinner(enemyAttributes.name.english);
         setLoser(heroAttributes.name.english);
@@ -183,6 +188,17 @@ export default function FightPage() {
         setWinner(heroAttributes.name.english);
         setLoser(enemyAttributes.name.english);
       }
+    }
+  };
+
+  useEffect(() => {
+    if (startFighter) {
+      console.log("start fighter ready");
+      setTimeout(() => {
+        fightSequence();
+      }, 3000);
+    } else {
+      console.log("start fighter not ready");
     }
   }, [countRound]);
 
