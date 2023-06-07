@@ -5,16 +5,21 @@ import { PopoverContext } from "../Context/PopoverContext";
 import { useContext } from "react";
 import { Slider, Button } from "@mui/material/";
 import styles from "./FightPage.css";
-// import { makeStyles } from "@mui/styles";
 
 export default function FightPage() {
-  const { hero, heroAttributes, enemy, enemyAttributes } =
-    useContext(DataContext);
+  const {
+    hero,
+    heroAttributes,
+    enemy,
+    enemyAttributes,
+    winner,
+    loser,
+    setWinner,
+    setLoser,
+  } = useContext(DataContext);
 
   const [startFighter, setStartFighter] = useState(null);
   const [countRound, setCountRound] = useState(0);
-  const [winner, setWinner] = useState(null);
-  const [loser, setLoser] = useState(null);
 
   const [heroHealth, setHeroHealth] = useState(heroAttributes?.base.HP);
   const [enemyHealth, setEnemyHealth] = useState(enemyAttributes?.base.HP);
@@ -25,9 +30,6 @@ export default function FightPage() {
   const [enemyDefense, setEnemyDefense] = useState(
     enemyAttributes.base.Defense
   );
-
-  // console.log("HERO", heroAttributes.base.Speed);
-  // console.log("ENEMY", enemyAttributes.base.Speed);
 
   //find out who starts
   const whoStarts = () => {
@@ -62,11 +64,9 @@ export default function FightPage() {
       setCountRound(1);
     }
   }, []);
-  console.log("startFighter after useEffect", startFighter);
 
   //defense check
 
-  // ###issue### dynamic defense setting doesn't update
   const defenseCheck = () => {
     if (enemyDefense >= heroAttack) {
       let heroCurrentAttack = heroAttack / 2;
@@ -84,7 +84,6 @@ export default function FightPage() {
   useEffect(() => {
     defenseCheck();
   }, []);
-  //console.log(`${startFighter} starts the first turn`);
 
   const fightSequence = () => {
     let currentHP = 0;
@@ -196,7 +195,7 @@ export default function FightPage() {
       console.log("start fighter ready");
       setTimeout(() => {
         fightSequence();
-      }, 3000);
+      }, 2000);
     } else {
       console.log("start fighter not ready");
     }
@@ -216,25 +215,78 @@ export default function FightPage() {
     navigate("/");
   }
 
-  // const useStyles = makeStyles({
-  //   root: {
-  //     color: 'red',
-  //     '& p': {
-  //       margin: 0,
-  //       color: 'green',
-  //       '& span': {
-  //         color: 'blue',
-  //       },
-  //     },
-  //   },
-  // });
+  async function createFighter() {
+    const data = await fetch(
+      `https://pokefight-test.onrender.com/fighters/${heroAttributes.name.english}`
+    );
+    const res = await data.json();
+    console.log("getFighter", res);
+    if (res === null) {
+      console.log("if statement createFighter");
+      const databody = {
+        name: heroAttributes.name.english,
+        wins: 0,
+        loses: 0,
+      };
+      const newdata = await fetch(
+        `https://pokefight-test.onrender.com/fighters`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(databody),
+        }
+      );
+      const newres = await newdata.json();
+      console.log("newres", newres);
+    }
+  }
 
-  // export default function NestedStylesHook() {
-  //   const classes = useStyles();
+  async function updateWinner() {
+    const databody = {
+      wins: 0,
+    };
+    const data = await fetch(
+      `https://pokefight-test.onrender.com/fighters/winner/${winner}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(databody),
+      }
+    );
+    const res = await data.json();
+    console.log("res", res);
+  }
+
+  async function updateLoser() {
+    const databody = {
+      loses: 0,
+    };
+    const data = await fetch(
+      `https://pokefight-test.onrender.com/fighters/loser/${loser}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(databody),
+      }
+    );
+    const res = await data.json();
+    console.log("res", res);
+  }
+
+  useEffect(() => {
+    createFighter();
+    if (winner) {
+      updateWinner();
+    }
+    if (loser) {
+      updateLoser();
+    }
+  }, [winner, loser]);
+
   return (
     <>
       <div className="container">
-        <h1 style={{ textAlign: "center" }}>Round {countRound}</h1>
+        <h1 style={{ textAlign: "center" }}>Round {countRound + 1}</h1>
         <div
           className="fightersWrapper"
           style={{
@@ -263,12 +315,6 @@ export default function FightPage() {
                 src={enemy.pictureAnimBack}
                 style={{ width: "10vw", height: "10vw" }}
               />
-              {/* <p>Speed: {fighterTwo?.base.Speed}</p>
-          <p>HP: {fighterTwo?.base.HP}</p>
-          <h3>dynamic HP: {fighterTwoHealth}</h3>
-          <p>Attack: {fighterTwo?.base.Attack}</p>
-          <p>dynamic Attack: {opponentAttack}</p>
-          <p>Defense: {fighterTwo?.base.Defense}</p> */}
             </div>
           </div>
           <div className="player hero">
@@ -292,12 +338,6 @@ export default function FightPage() {
                 />
               </div>
               <p className="name">{heroAttributes?.name.english}</p>
-              {/* <p>Speed: {fighterOne?.base.Speed}</p>
-          <p>HP: {fighterOne?.base.HP}</p>
-          <h3>dynamic HP: {fighterOneHealth}</h3>
-          <p>Attack: {fighterOne?.base.Attack}</p>
-          <p>dynamic Attack: {myAttack}</p>
-          <p>Defense: {fighterOne?.base.Defense}</p> */}
             </div>
           </div>
         </div>

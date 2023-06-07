@@ -71,7 +71,6 @@ export default function PokemonCardInfo() {
     pokemonTypeObject,
   } = useContext(DataContext);
   const { pokes } = useContext(DatabaseContext);
-  //console.log("My pokemon is coming", pokes);
 
   const navigate = useNavigate();
 
