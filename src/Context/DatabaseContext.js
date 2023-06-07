@@ -8,10 +8,8 @@ export default function DatabaseContextProvider(props) {
   const { pokename } = useParams();
   const [pokesTypeObject, setPokesTypeObject] = useState(null);
 
-  // console.log(pokename);
-
   const fetchPokes = async () => {
-    const url = `http://localhost:8000/poke/`;
+    const url = "https://pokefight-test.onrender.com/poke";
     const response = await fetch(`${url}`);
     const data = await response.json();
     setPokes(data.data);
@@ -52,7 +50,6 @@ export default function DatabaseContextProvider(props) {
   useEffect(() => {
     fetchPokes();
   }, []);
-  //console.log("my poke", pokes);
 
   return (
     <DatabaseContext.Provider value={{ pokes, pokesTypeObject, fetchPokes }}>

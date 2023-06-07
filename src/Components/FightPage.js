@@ -5,16 +5,21 @@ import { PopoverContext } from "../Context/PopoverContext";
 import { useContext } from "react";
 import { Slider, Button } from "@mui/material/";
 import styles from "./FightPage.css";
-// import { makeStyles } from "@mui/styles";
 
 export default function FightPage() {
-  const { hero, heroAttributes, enemy, enemyAttributes } =
-    useContext(DataContext);
+  const {
+    hero,
+    heroAttributes,
+    enemy,
+    enemyAttributes,
+    winner,
+    loser,
+    setWinner,
+    setLoser,
+  } = useContext(DataContext);
 
   const [startFighter, setStartFighter] = useState(null);
-  const [countRound, setCountRound] = useState(1);
-  const [winner, setWinner] = useState(null);
-  const [loser, setLoser] = useState(null);
+  const [countRound, setCountRound] = useState(0);
 
   const [heroHealth, setHeroHealth] = useState(heroAttributes?.base.HP);
   const [enemyHealth, setEnemyHealth] = useState(enemyAttributes?.base.HP);
@@ -25,9 +30,6 @@ export default function FightPage() {
   const [enemyDefense, setEnemyDefense] = useState(
     enemyAttributes.base.Defense
   );
-
-  console.log("HERO", heroAttributes.base.Speed);
-  console.log("ENEMY", enemyAttributes.base.Speed);
 
   //find out who starts
   const whoStarts = () => {
@@ -59,14 +61,12 @@ export default function FightPage() {
   useEffect(() => {
     if (!startFighter) {
       whoStarts();
-      setCountRound(0)
+      setCountRound(1);
     }
   }, []);
 
-  console.log("startFighter", startFighter);
   //defense check
 
-  // ###issue### dynamic defense setting doesn't update
   const defenseCheck = () => {
     if (enemyDefense >= heroAttack) {
       let heroCurrentAttack = heroAttack / 2;
@@ -84,27 +84,24 @@ export default function FightPage() {
   useEffect(() => {
     defenseCheck();
   }, []);
-  //console.log(`${startFighter} starts the first turn`);
 
   const fightSequence = () => {
     let currentHP = 0;
-    let currentCount = 0;
+    let currentCount = 1;
+
     if (heroHealth > 0 && enemyHealth > 0) {
       switch (countRound) {
-        case 0:
-          setCountRound(1)
-        break;
         case 1:
           console.log("### Start fight sequence ###");
           console.log("Round#1");
           console.log(`${startFighter} starts the turn`);
           if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack/4;
+            currentHP = heroHealth - enemyAttack / 2;
             console.log(`Hero lost ${enemyAttack} HPs`);
             setHeroHealth(currentHP);
             setStartFighter(heroAttributes.name.english);
           } else {
-            currentHP = enemyHealth - heroAttack/4;
+            currentHP = enemyHealth - heroAttack / 2;
             console.log(`Enemy lost ${heroAttack} HPs`);
             setEnemyHealth(currentHP);
             setStartFighter(enemyAttributes.name.english);
@@ -116,12 +113,12 @@ export default function FightPage() {
           console.log("Round#2");
           console.log(`${startFighter} starts the turn`);
           if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack/4;
+            currentHP = heroHealth - enemyAttack / 3;
             console.log(`Hero lost ${enemyAttack} HPs`);
             setHeroHealth(currentHP);
             setStartFighter(heroAttributes.name.english);
           } else {
-            currentHP = enemyHealth - heroAttack/4;
+            currentHP = enemyHealth - heroAttack / 3;
             console.log(`Enemy lost ${heroAttack} HPs`);
             setEnemyHealth(currentHP);
             setStartFighter(enemyAttributes.name.english);
@@ -133,12 +130,12 @@ export default function FightPage() {
           console.log("Round#3");
           console.log(`${startFighter} starts the turn`);
           if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack/4;
+            currentHP = heroHealth - enemyAttack / 3;
             console.log(`Hero lost ${enemyAttack} HPs`);
             setHeroHealth(currentHP);
             setStartFighter(heroAttributes.name.english);
           } else {
-            currentHP = enemyHealth - heroAttack/4;
+            currentHP = enemyHealth - heroAttack / 3;
             console.log(`Enemy lost ${heroAttack} HPs`);
             setEnemyHealth(currentHP);
             setStartFighter(enemyAttributes.name.english);
@@ -150,12 +147,28 @@ export default function FightPage() {
           console.log("Round#4");
           console.log(`${startFighter} starts the turn`);
           if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack;
+            currentHP = heroHealth - enemyAttack / 2;
             console.log(`Hero lost ${enemyAttack} HPs`);
             setHeroHealth(currentHP);
             setStartFighter(heroAttributes.name.english);
           } else {
-            currentHP = enemyHealth - heroAttack;
+            currentHP = enemyHealth - heroAttack / 2;
+            console.log(`Enemy lost ${heroAttack} HPs`);
+            setEnemyHealth(currentHP);
+            setStartFighter(enemyAttributes.name.english);
+          }
+          currentCount = countRound + 1;
+          setCountRound(currentCount);
+        case 5:
+          console.log("Round#4");
+          console.log(`${startFighter} starts the turn`);
+          if (startFighter !== heroAttributes.name.english) {
+            currentHP = heroHealth - enemyAttack / 2;
+            console.log(`Hero lost ${enemyAttack} HPs`);
+            setHeroHealth(currentHP);
+            setStartFighter(heroAttributes.name.english);
+          } else {
+            currentHP = enemyHealth - heroAttack / 2;
             console.log(`Enemy lost ${heroAttack} HPs`);
             setEnemyHealth(currentHP);
             setStartFighter(enemyAttributes.name.english);
@@ -164,7 +177,6 @@ export default function FightPage() {
           setCountRound(currentCount);
           break;
         default:
-          console.log("ooopsi, something went wrong");
           break;
       }
     } else {
@@ -203,84 +215,78 @@ export default function FightPage() {
     navigate("/");
   }
 
-  // const useStyles = makeStyles({
-  //   root: {
-  //     color: 'red',
-  //     '& p': {
-  //       margin: 0,
-  //       color: 'green',
-  //       '& span': {
-  //         color: 'blue',
-  //       },
-  //     },
-  //   },
-  // });
-
-  // export default function NestedStylesHook() {
-  //   const classes = useStyles();
-
-  async function createFighter () {
-    const data = await fetch(`http://localhost:8000/fighters/${heroAttributes.name.english}`)
-      const res = await data.json()
-      console.log("getFighter", res)
-    if(res === null) {
-      console.log("if statement createFighter")
-        const databody = {
+  async function createFighter() {
+    const data = await fetch(
+      `https://pokefight-test.onrender.com/fighters/${heroAttributes.name.english}`
+    );
+    const res = await data.json();
+    console.log("getFighter", res);
+    if (res === null) {
+      console.log("if statement createFighter");
+      const databody = {
         name: heroAttributes.name.english,
         wins: 0,
-        loses: 0
-        };
-          const newdata = await fetch(`http://localhost:8000/fighters`, {
+        loses: 0,
+      };
+      const newdata = await fetch(
+        `https://pokefight-test.onrender.com/fighters`,
+        {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(databody),
-        })
-        const newres = await newdata.json()
-          console.log("newres", newres)
-        };
+        }
+      );
+      const newres = await newdata.json();
+      console.log("newres", newres);
     }
-  
-  async function updateWinner () {
+  }
+
+  async function updateWinner() {
     const databody = {
-    wins: 0
+      wins: 0,
     };
-      const data = await fetch(`http://localhost:8000/fighters/winner/${winner}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(databody),
-    })
-    const res = await data.json()
-      console.log("res", res)
-    };
-  
-    async function updateLoser () {
-      const databody = {
-        loses: 0
-      };
-        const data = await fetch(`http://localhost:8000/fighters/loser/${loser}`, {
+    const data = await fetch(
+      `https://pokefight-test.onrender.com/fighters/winner/${winner}`,
+      {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(databody),
-      })
-      const res = await data.json()
-        console.log("res", res)
-      };
-  
-    useEffect(()=>{
-      createFighter ();
-      if(winner) {
-        updateWinner ()
       }
-      if(loser) {
-        updateLoser ()
+    );
+    const res = await data.json();
+    console.log("res", res);
+  }
+
+  async function updateLoser() {
+    const databody = {
+      loses: 0,
+    };
+    const data = await fetch(
+      `https://pokefight-test.onrender.com/fighters/loser/${loser}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(databody),
       }
-      }, [winner, loser])
-  
+    );
+    const res = await data.json();
+    console.log("res", res);
+  }
+
+  useEffect(() => {
+    createFighter();
+    if (winner) {
+      updateWinner();
+    }
+    if (loser) {
+      updateLoser();
+    }
+  }, [winner, loser]);
 
   return (
     <>
       <div className="container">
-        <h1 style={{ textAlign: "center" }}>Round {countRound +1}</h1>
+        <h1 style={{ textAlign: "center" }}>Round {countRound + 1}</h1>
         <div
           className="fightersWrapper"
           style={{
@@ -309,12 +315,6 @@ export default function FightPage() {
                 src={enemy.pictureAnimBack}
                 style={{ width: "10vw", height: "10vw" }}
               />
-              {/* <p>Speed: {fighterTwo?.base.Speed}</p>
-          <p>HP: {fighterTwo?.base.HP}</p>
-          <h3>dynamic HP: {fighterTwoHealth}</h3>
-          <p>Attack: {fighterTwo?.base.Attack}</p>
-          <p>dynamic Attack: {opponentAttack}</p>
-          <p>Defense: {fighterTwo?.base.Defense}</p> */}
             </div>
           </div>
           <div className="player hero">
@@ -338,12 +338,6 @@ export default function FightPage() {
                 />
               </div>
               <p className="name">{heroAttributes?.name.english}</p>
-              {/* <p>Speed: {fighterOne?.base.Speed}</p>
-          <p>HP: {fighterOne?.base.HP}</p>
-          <h3>dynamic HP: {fighterOneHealth}</h3>
-          <p>Attack: {fighterOne?.base.Attack}</p>
-          <p>dynamic Attack: {myAttack}</p>
-          <p>Defense: {fighterOne?.base.Defense}</p> */}
             </div>
           </div>
         </div>
