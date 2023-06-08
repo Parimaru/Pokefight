@@ -5,11 +5,18 @@ import { PopoverContext } from "../Context/PopoverContext";
 import { useContext } from "react";
 import { LinearProgress, Button } from "@mui/material/";
 import styles from "./FightPage.css";
-// import { makeStyles } from "@mui/styles";
 
 export default function FightPage() {
-  const { hero, heroAttributes, enemy, enemyAttributes } =
-    useContext(DataContext);
+  const {
+    hero,
+    heroAttributes,
+    enemy,
+    enemyAttributes,
+    winner,
+    loser,
+    setWinner,
+    setLoser,
+  } = useContext(DataContext);
 
   const [startFighter, setStartFighter] = useState(null);
   const [countRound, setCountRound] = useState(null);
@@ -25,9 +32,6 @@ export default function FightPage() {
   const [enemyDefense, setEnemyDefense] = useState(
     enemyAttributes.base.Defense
   );
-
-  console.log("HERO", heroAttributes.base.Speed);
-  console.log("ENEMY", enemyAttributes.base.Speed);
 
   //find out who starts
   const whoStarts = () => {
@@ -63,10 +67,8 @@ export default function FightPage() {
     }
   }, []);
 
-  console.log("startFighter", startFighter);
   //defense check
 
-  // ###issue### dynamic defense setting doesn't update
   const defenseCheck = () => {
     if (enemyDefense >= heroAttack) {
       let heroCurrentAttack = heroAttack / 2;
@@ -84,7 +86,6 @@ export default function FightPage() {
   useEffect(() => {
     defenseCheck();
   }, []);
-  //console.log(`${startFighter} starts the first turn`);
 
   const round = (currentHP) => {
     console.log(`${startFighter} starts the turn`);
@@ -103,7 +104,8 @@ export default function FightPage() {
 
   const fightSequence = () => {
     let currentHP = 0;
-    let currentCount = 0;
+    let currentCount = 1;
+
     if (heroHealth > 0 && enemyHealth > 0) {
       if (countRound == 0) {
         setCountRound(1);
@@ -148,25 +150,10 @@ export default function FightPage() {
     navigate("/");
   }
 
-  // const useStyles = makeStyles({
-  //   root: {
-  //     color: 'red',
-  //     '& p': {
-  //       margin: 0,
-  //       color: 'green',
-  //       '& span': {
-  //         color: 'blue',
-  //       },
-  //     },
-  //   },
-  // });
-
-  // export default function NestedStylesHook() {
-  //   const classes = useStyles();
-
   async function createFighter() {
     const data = await fetch(
-      `http://localhost:8000/fighters/${heroAttributes.name.english}`
+      `https://pokefight-test.onrender.com/fighters/${heroAttributes.name.english}`
+
     );
     const res = await data.json();
     console.log("getFighter", res);
@@ -177,11 +164,15 @@ export default function FightPage() {
         wins: 0,
         loses: 0,
       };
-      const newdata = await fetch(`http://localhost:8000/fighters`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(databody),
-      });
+
+      const newdata = await fetch(
+        `https://pokefight-test.onrender.com/fighters`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(databody),
+        }
+      );
       const newres = await newdata.json();
       console.log("newres", newres);
     }
@@ -192,7 +183,9 @@ export default function FightPage() {
       wins: 0,
     };
     const data = await fetch(
-      `http://localhost:8000/fighters/winner/${winner}`,
+
+      `https://pokefight-test.onrender.com/fighters/winner/${winner}`,
+
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -207,11 +200,14 @@ export default function FightPage() {
     const databody = {
       loses: 0,
     };
-    const data = await fetch(`http://localhost:8000/fighters/loser/${loser}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(databody),
-    });
+    const data = await fetch(
+      `https://pokefight-test.onrender.com/fighters/loser/${loser}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(databody),
+      }
+    );
     const res = await data.json();
     console.log("res", res);
   }
@@ -269,12 +265,6 @@ export default function FightPage() {
                 src={enemy.pictureAnimBack}
                 style={{ width: "10vw", height: "10vw" }}
               />
-              {/* <p>Speed: {fighterTwo?.base.Speed}</p>
-          <p>HP: {fighterTwo?.base.HP}</p>
-          <h3>dynamic HP: {fighterTwoHealth}</h3>
-          <p>Attack: {fighterTwo?.base.Attack}</p>
-          <p>dynamic Attack: {opponentAttack}</p>
-          <p>Defense: {fighterTwo?.base.Defense}</p> */}
             </div>
           </div>
           <div className="player hero">
@@ -295,12 +285,6 @@ export default function FightPage() {
                 />
               </div>
               <p className="name">{heroAttributes?.name.english}</p>
-              {/* <p>Speed: {fighterOne?.base.Speed}</p>
-          <p>HP: {fighterOne?.base.HP}</p>
-          <h3>dynamic HP: {fighterOneHealth}</h3>
-          <p>Attack: {fighterOne?.base.Attack}</p>
-          <p>dynamic Attack: {myAttack}</p>
-          <p>Defense: {fighterOne?.base.Defense}</p> */}
             </div>
           </div>
         </div>

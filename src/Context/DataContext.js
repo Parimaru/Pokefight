@@ -10,6 +10,8 @@ export default function DataContextProvider(props) {
   const [heroAttributes, setHeroAttributes] = useState(null); //getting data from MongoDB - pokes
   const [enemy, setEnemy] = useState(null); //getting data from JSON - pokemons
   const [enemyAttributes, setEnemyAttributes] = useState(null); //getting data from MongoDB - pokes
+  const [winner, setWinner] = useState(null);
+  const [loser, setLoser] = useState(null);
 
   const fetchPokemons = async () => {
     const url =
@@ -69,6 +71,10 @@ export default function DataContextProvider(props) {
         setHeroAttributes,
         enemyAttributes,
         setEnemyAttributes,
+        setWinner,
+        winner,
+        loser,
+        setLoser,
       }}
     >
       {props.children}
