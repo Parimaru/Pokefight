@@ -20,8 +20,6 @@ export default function FightPage() {
 
   const [startFighter, setStartFighter] = useState(null);
   const [countRound, setCountRound] = useState(null);
-  const [winner, setWinner] = useState(null);
-  const [loser, setLoser] = useState(null);
 
   const [heroHealth, setHeroHealth] = useState(heroAttributes?.base.HP);
   const [enemyHealth, setEnemyHealth] = useState(enemyAttributes?.base.HP);
@@ -153,7 +151,6 @@ export default function FightPage() {
   async function createFighter() {
     const data = await fetch(
       `https://pokefight-test.onrender.com/fighters/${heroAttributes.name.english}`
-
     );
     const res = await data.json();
     console.log("getFighter", res);
@@ -183,7 +180,6 @@ export default function FightPage() {
       wins: 0,
     };
     const data = await fetch(
-
       `https://pokefight-test.onrender.com/fighters/winner/${winner}`,
 
       {
