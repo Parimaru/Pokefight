@@ -23,19 +23,6 @@ export default function Category() {
   const { pokes, pokesTypeObject } = useContext(DatabaseContext);
   const { pokemons, pokemonTypeObject } = useContext(DataContext);
 
-  // console.log(pokemonTypeObject);
-
-  // console.log(
-  //   "All JSON:",
-  //   pokemons,
-  //   "Only JSON category:",
-  //   [],
-  //   "All MongoDB:",
-  //   pokes,
-  //   "Only MongoDB category",
-  //   pokesCategory
-  // );
-
   const handleClick = (event) => {
     setCurrentCategory(category);
     setPopover(true);
@@ -54,9 +41,6 @@ export default function Category() {
       )
     );
   };
-  //console.log("category page pokemons", pokemons);
-  //console.log("Filtered typeArray ", []);
-  //console.log("useparams, category", typeof category);
 
   return (
     <>
@@ -99,7 +83,11 @@ export default function Category() {
             </div>
           ))
         ) : (
-          <Skeleton variant="rounded" width={210} height={60} />
+          <>
+            {pokemonTypeObject.map((pokemon) => (
+              <Skeleton variant="rounded" width={230} height={244} />
+            ))}
+          </>
         )}
       </Box>
       <PokemonPopover />

@@ -50,3 +50,7 @@ body {
 .pokePicture{
     width: 80%;
 }
+
+.buttonRandom h2{
+    margin-top: 18px;
+}

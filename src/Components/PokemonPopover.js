@@ -133,7 +133,7 @@ export default function PokemonCardInfo() {
           {currentPokemon && (
             <div>
               <div className="pokeCard" style={pokecardImage}>
-                <div className="container">
+                <div className="containerPopover">
                   <div className="header">
                     <p className="name">{currentPoke.name}</p>
                     <div className="headerRight">
@@ -146,9 +146,16 @@ export default function PokemonCardInfo() {
                     </div>
                   </div>
                   <p className="basicEvolve">
-                    {currentPoke.evolvesFrom == ""
-                      ? "Basic"
-                      : "Evolves from " + currentPoke.evolvesFrom}
+                    {currentPoke.evolvesFrom == "" ? (
+                      "Basic"
+                    ) : (
+                      <>
+                        Evolves from{" "}
+                        <span className="evolveName">
+                          {currentPoke.evolvesFrom}
+                        </span>
+                      </>
+                    )}
                   </p>
                   <img
                     className="picturePokemon"
@@ -200,16 +207,20 @@ export default function PokemonCardInfo() {
                     </div>
                   </div>
                   <div className="defence">
+                    <p className="defenceLable">| Defence</p>
                     <p className="defenceValue">
                       {currentPokemon.base.Defense}
                     </p>
+                    <p className="lineOne">|</p>
                     <p className="defenceIcon">
                       <img src={iconLink} className="typeIcon iconSmall" />
                     </p>
                     <p className="oneTime">x1</p>
+                    <p className="defenceSp">Sp. Defence</p>
                     <p className="defenceSpValue">
                       {currentPokemon.base["Sp. Defense"]}
                     </p>
+                    <p className="lineTwo">|</p>
                   </div>
                   <div className="footer">
                     <p className="textButtom">
