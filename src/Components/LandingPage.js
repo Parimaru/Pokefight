@@ -77,9 +77,22 @@ export default function NestedGrid() {
           <h2 style={{ textAlign: "center" }}>
             Choose your enemy from one of these categories or
           </h2>
-          <Button onClick={handleClickRandom} variant="contained">
-            Random enemy
-          </Button>
+          <button
+            style={{
+              backgroundImage: "url(../img/button.png)",
+              backgroundSize: "contain",
+              backgroundColor: "transparent",
+              height: "67px",
+              width: "324px",
+              border: "none",
+            }}
+            className="buttonRandom"
+            type="button"
+            onClick={handleClickRandom}
+            variant="contained"
+          >
+            <h2>Random enemy</h2>
+          </button>
         </div>
       ) : (
         <h2 style={{ textAlign: "center" }}>

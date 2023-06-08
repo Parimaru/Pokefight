@@ -4,15 +4,18 @@ p{
     margin: 0;
     padding: 0;
 }
+
 .container{
     display: block;
+    text-align: center;
 }
 
 .simulator{
     width: 101%;
 }
 
-.fightersWrapper{    width: 50vw;
+.fightersWrapper{    
+    width: 50vw;
     height: 33vw;
     margin: 0 auto;
     font-style: normal;
@@ -38,16 +41,18 @@ p{
 }
 
 .hero{
-    margin-top:1%;
+    margin-top:1.4%;
 }
 
 .enemyStats{
+    text-align: left;
     margin-top: 8%;
-    width: 15%;
+    width: 17%;
 }
 .heroStats{
+    text-align: left;
     margin-top: 10%;
-    width: 15%;
+    width: 17%;
 }
 
 
@@ -57,16 +62,36 @@ p{
 
 
 .name{
-    margin-top: -60%;
+    margin-top: -40%;
     height: 20%;
 }
 
 .sliderEnemy{
     position: relative;
-    left: 50%;
+    left: 40%;
 }
 
 .sliderHero{
     position: relative;
     left: 50%;
+}
+
+.winner{
+    position: absolute;
+    left: 20%;
+    margin-top: -50%;
+}
+
+.buttons {
+    /* background-image: url("./img/button.png"); */
+    display: flex;
+    justify-content: center;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    line-height: 0.8rem;
+    gap: 5px;
+}
+
+.buttons h2{
+    margin-top: 18px;
 }

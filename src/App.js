@@ -21,7 +21,7 @@ function App() {
           src="./img/icon/Dark.png"
           className="toggleTheme"
           onClick={handleOnlick}
-        /> */}
+        /> */}{" "}
       </div>
       <Routes>
         <Route path="/" element={<LandingPage />} />

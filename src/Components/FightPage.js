@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { DataContext } from "../Context/DataContext";
 import { PopoverContext } from "../Context/PopoverContext";
 import { useContext } from "react";
-import { Slider, Button } from "@mui/material/";
+import { LinearProgress, Button } from "@mui/material/";
 import styles from "./FightPage.css";
 
 export default function FightPage() {
@@ -19,7 +19,7 @@ export default function FightPage() {
   } = useContext(DataContext);
 
   const [startFighter, setStartFighter] = useState(null);
-  const [countRound, setCountRound] = useState(0);
+  const [countRound, setCountRound] = useState(null);
 
   const [heroHealth, setHeroHealth] = useState(heroAttributes?.base.HP);
   const [enemyHealth, setEnemyHealth] = useState(enemyAttributes?.base.HP);
@@ -61,7 +61,7 @@ export default function FightPage() {
   useEffect(() => {
     if (!startFighter) {
       whoStarts();
-      setCountRound(1);
+      setCountRound(0);
     }
   }, []);
 
@@ -85,99 +85,32 @@ export default function FightPage() {
     defenseCheck();
   }, []);
 
+  const round = (currentHP) => {
+    console.log(`${startFighter} starts the turn`);
+    if (startFighter !== heroAttributes.name.english) {
+      currentHP = heroHealth - enemyAttack / 4;
+      console.log(`Hero lost ${enemyAttack} HPs`);
+      setHeroHealth(currentHP);
+      setStartFighter(heroAttributes.name.english);
+    } else {
+      currentHP = enemyHealth - heroAttack / 4;
+      console.log(`Enemy lost ${heroAttack} HPs`);
+      setEnemyHealth(currentHP);
+      setStartFighter(enemyAttributes.name.english);
+    }
+  };
+
   const fightSequence = () => {
     let currentHP = 0;
     let currentCount = 1;
 
     if (heroHealth > 0 && enemyHealth > 0) {
-      switch (countRound) {
-        case 1:
-          console.log("### Start fight sequence ###");
-          console.log("Round#1");
-          console.log(`${startFighter} starts the turn`);
-          if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack / 2;
-            console.log(`Hero lost ${enemyAttack} HPs`);
-            setHeroHealth(currentHP);
-            setStartFighter(heroAttributes.name.english);
-          } else {
-            currentHP = enemyHealth - heroAttack / 2;
-            console.log(`Enemy lost ${heroAttack} HPs`);
-            setEnemyHealth(currentHP);
-            setStartFighter(enemyAttributes.name.english);
-          }
-          currentCount = countRound + 1;
-          setCountRound(currentCount);
-          break;
-        case 2:
-          console.log("Round#2");
-          console.log(`${startFighter} starts the turn`);
-          if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack / 3;
-            console.log(`Hero lost ${enemyAttack} HPs`);
-            setHeroHealth(currentHP);
-            setStartFighter(heroAttributes.name.english);
-          } else {
-            currentHP = enemyHealth - heroAttack / 3;
-            console.log(`Enemy lost ${heroAttack} HPs`);
-            setEnemyHealth(currentHP);
-            setStartFighter(enemyAttributes.name.english);
-          }
-          currentCount = countRound + 1;
-          setCountRound(currentCount);
-          break;
-        case 3:
-          console.log("Round#3");
-          console.log(`${startFighter} starts the turn`);
-          if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack / 3;
-            console.log(`Hero lost ${enemyAttack} HPs`);
-            setHeroHealth(currentHP);
-            setStartFighter(heroAttributes.name.english);
-          } else {
-            currentHP = enemyHealth - heroAttack / 3;
-            console.log(`Enemy lost ${heroAttack} HPs`);
-            setEnemyHealth(currentHP);
-            setStartFighter(enemyAttributes.name.english);
-          }
-          currentCount = countRound + 1;
-          setCountRound(currentCount);
-          break;
-        case 4:
-          console.log("Round#4");
-          console.log(`${startFighter} starts the turn`);
-          if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack / 2;
-            console.log(`Hero lost ${enemyAttack} HPs`);
-            setHeroHealth(currentHP);
-            setStartFighter(heroAttributes.name.english);
-          } else {
-            currentHP = enemyHealth - heroAttack / 2;
-            console.log(`Enemy lost ${heroAttack} HPs`);
-            setEnemyHealth(currentHP);
-            setStartFighter(enemyAttributes.name.english);
-          }
-          currentCount = countRound + 1;
-          setCountRound(currentCount);
-        case 5:
-          console.log("Round#4");
-          console.log(`${startFighter} starts the turn`);
-          if (startFighter !== heroAttributes.name.english) {
-            currentHP = heroHealth - enemyAttack / 2;
-            console.log(`Hero lost ${enemyAttack} HPs`);
-            setHeroHealth(currentHP);
-            setStartFighter(heroAttributes.name.english);
-          } else {
-            currentHP = enemyHealth - heroAttack / 2;
-            console.log(`Enemy lost ${heroAttack} HPs`);
-            setEnemyHealth(currentHP);
-            setStartFighter(enemyAttributes.name.english);
-          }
-          currentCount = countRound + 1;
-          setCountRound(currentCount);
-          break;
-        default:
-          break;
+      if (countRound == 0) {
+        setCountRound(1);
+      } else {
+        round(currentHP);
+        currentCount = countRound + 1;
+        setCountRound(currentCount);
       }
     } else {
       if (heroHealth <= 0) {
@@ -228,6 +161,7 @@ export default function FightPage() {
         wins: 0,
         loses: 0,
       };
+
       const newdata = await fetch(
         `https://pokefight-test.onrender.com/fighters`,
         {
@@ -247,6 +181,7 @@ export default function FightPage() {
     };
     const data = await fetch(
       `https://pokefight-test.onrender.com/fighters/winner/${winner}`,
+
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -286,7 +221,19 @@ export default function FightPage() {
   return (
     <>
       <div className="container">
-        <h1 style={{ textAlign: "center" }}>Round {countRound + 1}</h1>
+        <div style={{ textAlign: "center" }}>
+          {winner ? (
+            <h1>{winner} won!</h1>
+          ) : (
+            <>
+              {countRound > 1 ? (
+                <h1>Round {countRound - 1}</h1>
+              ) : (
+                <h1>Let's go {heroAttributes?.name.english}!!</h1>
+              )}
+            </>
+          )}
+        </div>
         <div
           className="fightersWrapper"
           style={{
@@ -299,13 +246,12 @@ export default function FightPage() {
           <div className="player enemy">
             <div className="enemyStats">
               <div className="sliderEnemy">
-                <Slider
-                  disabled
-                  defaultValue={enemyAttributes?.base.HP}
-                  max={heroAttributes?.base.HP}
+                <LinearProgress
+                  sx={{ height: "1vw" }}
+                  variant="determinate"
                   aria-label="Hp enemy slider"
-                  value={enemyHealth}
-                  valueLabelDisplay="auto"
+                  value={(enemyHealth * 100) / enemyAttributes?.base.HP}
+                  color="success"
                 />
               </div>
               <p className="name">{enemyAttributes?.name.english}</p>
@@ -326,35 +272,47 @@ export default function FightPage() {
             </div>
             <div className="heroStats">
               <div className="sliderHero">
-                <Slider
-                  sx={{ color: "green" }}
-                  disabled
-                  defaultValue={heroAttributes?.base.HP}
-                  max={heroAttributes?.base.HP}
+                <LinearProgress
+                  sx={{ height: "1vw" }}
+                  variant="determinate"
                   aria-label="Hp hero slider"
-                  value={heroHealth}
-                  valueLabelDisplay="auto"
-                  //color="red"
+                  value={(heroHealth * 100) / heroAttributes?.base.HP}
+                  color="success"
                 />
               </div>
               <p className="name">{heroAttributes?.name.english}</p>
             </div>
           </div>
         </div>
-        {winner ? (
-          <div className="winner" style={{ textAlign: "center" }}>
-            <h2>Winner: {winner}</h2>
-          </div>
-        ) : (
-          <div></div>
-        )}
         <div className="buttons" style={{ textAlign: "center" }}>
-          <Button onClick={handleClickLeaderboard} variant="contained">
-            Leaderboard
-          </Button>
-          <Button onClick={handleClickRestart} variant="contained">
-            Start again
-          </Button>
+          <button
+            style={{
+              backgroundImage: "url(../img/button.png)",
+              backgroundSize: "contain",
+              backgroundColor: "transparent",
+              height: "67px",
+              width: "324px",
+              border: "none",
+            }}
+            type="button"
+            onClick={handleClickLeaderboard}
+          >
+            <h2>Leaderboard</h2>
+          </button>
+          <button
+            style={{
+              backgroundImage: "url(../img/button.png)",
+              backgroundSize: "contain",
+              backgroundColor: "transparent",
+              height: "67px",
+              width: "324px",
+              border: "none",
+            }}
+            type="button"
+            onClick={handleClickRestart}
+          >
+            <h2>Start again</h2>
+          </button>
         </div>
       </div>
     </>

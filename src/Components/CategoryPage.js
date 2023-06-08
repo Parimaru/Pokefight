@@ -83,7 +83,11 @@ export default function Category() {
             </div>
           ))
         ) : (
-          <Skeleton variant="rounded" width={210} height={60} />
+          <>
+            {pokemonTypeObject.map((pokemon) => (
+              <Skeleton variant="rounded" width={230} height={244} />
+            ))}
+          </>
         )}
       </Box>
       <PokemonPopover />

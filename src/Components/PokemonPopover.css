@@ -27,7 +27,7 @@ p{
     color: black;
 }
 
-.container{
+.containerPopover{
     margin: 0 45px;
 }
 
@@ -68,6 +68,10 @@ p{
 }
 
 /* Picture */
+
+.evolveName{
+        text-transform:capitalize;
+}
 
 .basicEvolve{
     position: relative;
@@ -166,27 +170,54 @@ p{
     font-weight: 500;
     margin-top: 13px;
     align-items: flex-end;
+    background-color: rgb(243, 243, 243);
+    border-radius: 5px;
+    height: 1.5em;
+    line-height: 1.5em;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 0px 1px 0.5px rgba(0, 0, 0, 0.25);
+}
+
+.defenceLable{
+    position: relative;
+    left: 5%;
 }
 
 .defence .defenceValue{
     position: relative;
-    left: 30%;
+    left: 12%;
+    font-weight: 900;
 }
 .defence .defenceIcon{
     position: relative;
     margin-bottom: -5px;
-    left: 37%
+    left: 19%
 }
 
 .defence .oneTime{
     position: relative;
-    left: 38%;
+    left: 20%;
     font-size: 17px;
+}
+
+.lineOne{
+    position: relative;
+    left: 15%;
+}
+
+.defenceSp{
+        position: relative;
+    left: 25%;
 }
 
 .defence .defenceSpValue{
     position: relative;
-    left: 74%
+    left: 30%;
+    font-weight: 900;
+}
+
+.lineTwo{
+        position: relative;
+    left: 32%;
 }
 
 /* Footer */
