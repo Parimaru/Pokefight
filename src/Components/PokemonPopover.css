@@ -179,11 +179,12 @@ p{
 
 .defenceLable{
     position: relative;
-    left: 5%;
+    left: 3%;
 }
 
 .defence .defenceValue{
     position: relative;
+    min-width: 34px;
     left: 12%;
     font-weight: 900;
 }
@@ -213,17 +214,18 @@ p{
     position: relative;
     left: 30%;
     font-weight: 900;
+    min-width: 34px;
 }
 
 .lineTwo{
         position: relative;
-    left: 32%;
+    left: 30%;
 }
 
 /* Footer */
 
 .footer{
-    margin-top: 20px;
+    margin-top: 14px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -245,6 +247,9 @@ p{
     justify-content: flex-end;
 }
 
+.footerRight .habitat {
+    white-space: nowrap;
+}
 .footerRight .habitat::first-letter {
     text-transform:capitalize;
     margin-left: 3px;

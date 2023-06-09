@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
-import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../Context/DataContext";
+import styles from "./Leaderboard.css";
 export default function Leaderboard() {
   const [data, setData] = useState(null);
   const { setWinner, setHero, setEnemy } = useContext(DataContext);
@@ -26,59 +26,81 @@ export default function Leaderboard() {
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
-        <div>
-          <h3>POKEMON</h3>
-          {data?.map((poke) => (
-            <div
-              key={poke._id}
-              style={{
-                display: "flex",
-                justifyContent: "space",
-                alignItems: "center",
-                marginBottom: "10px",
-              }}
-            >
-              <p>{poke.name}</p>
-            </div>
-          ))}
+      <div className="leaderboard">
+        <div className="headers">
+          <h3 style={{ width: "18vw" }}>POKEMON</h3>
+          <h3 style={{ width: "15vw" }}>LOSES</h3>
+          <h3 style={{ width: "10vw" }}>WINS</h3>
         </div>
-        <div>
-          <h3>WINS</h3>
-          {data?.map((poke) => (
-            <div
-              key={poke._id}
-              style={{
-                display: "flex",
-                justifyContent: "space",
-                alignItems: "center",
-                marginBottom: "10px",
-              }}
-            >
-              <p>{poke.wins}</p>
-            </div>
-          ))}
-        </div>
-        <div>
-          <h3>LOSES</h3>
-          {data?.map((poke) => (
-            <div
-              key={poke._id}
-              style={{
-                display: "flex",
-                justifyContent: "space",
-                alignItems: "center",
-                marginBottom: "10px",
-              }}
-            >
-              <p>{poke.loses}</p>
-            </div>
-          ))}
+        <div className="table">
+          <div>
+            {data?.map((poke) => (
+              <div
+                key={poke._id}
+                style={{
+                  display: "flex",
+                  justifyContent: "space",
+                  alignItems: "center",
+                  marginBottom: "10px",
+                  width: "18vw",
+                }}
+              >
+                <p>{poke.name}</p>
+              </div>
+            ))}
+          </div>
+          <div>
+            {data?.map((poke) => (
+              <div
+                key={poke._id}
+                style={{
+                  display: "flex",
+                  justifyContent: "space",
+                  alignItems: "center",
+                  marginBottom: "10px",
+                  width: "15vw",
+                }}
+              >
+                <p>{poke.wins}</p>
+              </div>
+            ))}
+          </div>
+          <div>
+            {data?.map((poke) => (
+              <div
+                key={poke._id}
+                style={{
+                  display: "flex",
+                  justifyContent: "space",
+                  alignItems: "center",
+                  marginBottom: "10px",
+                  width: "10vw",
+                }}
+              >
+                <p>{poke.loses}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-      <Button onClick={handleClickRestart} variant="contained">
-        Home
-      </Button>
+      <button
+        style={{
+          backgroundImage: "url(../img/button.png)",
+          backgroundSize: "contain",
+          backgroundColor: "transparent",
+          height: "67px",
+          width: "324px",
+          border: "none",
+          display: "block",
+          marginInline: "auto",
+          marginTop: "10vh",
+          marginBottom: "10vh",
+        }}
+        type="button"
+        onClick={handleClickRestart}
+      >
+        <h2 style={{ marginTop: "15px" }}>Home</h2>
+      </button>
     </>
   );
 }
