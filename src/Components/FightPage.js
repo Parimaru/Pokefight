@@ -258,7 +258,11 @@ export default function FightPage() {
             </div>
             <div className="enemyPicture">
               <img
-                src={enemy.pictureAnimBack}
+                src={
+                  enemy.pictureAnimBack
+                    ? enemy.pictureAnimBack
+                    : enemy.pictureArt
+                }
                 style={{ width: "10vw", height: "10vw" }}
               />
             </div>
@@ -266,7 +270,11 @@ export default function FightPage() {
           <div className="player hero">
             <div className="heroPicture">
               <img
-                src={hero.pictureAnimFront}
+                src={
+                  hero.pictureAnimFront
+                    ? hero.pictureAnimFront
+                    : hero.pictureArt
+                }
                 style={{ width: "10vw", height: "10vw" }}
               />
             </div>
